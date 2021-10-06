@@ -40,5 +40,5 @@ jobs:
     - name: Download a Deployment Zip
       uses: actions/download-artifact@v2
       with:
-        name: deployment_zip
+        name: gitHub-actions-artifact_zip
    
