@@ -20,4 +20,12 @@ jobs:
         distribution: 'adopt'
 
     - name: Build project with Maven
-      run: mvn -B package --file pom.xml
+      run: | 
+        mvn -B package --file pom.xml
+        mkdir staging && cp target/*.jar staging
+        
+    - name: Persist workflow data as artifacts
+      uses: actions/upload artifact@v2
+      with:
+        name: gitHub-actions-artifact
+        path: staging
