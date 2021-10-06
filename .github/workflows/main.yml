@@ -1,4 +1,4 @@
-name: Maven cicd
+name: Java maven cicd
 
 on:
   push:
