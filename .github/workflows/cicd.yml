@@ -54,3 +54,29 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: gitHub-actions-artifact
+        
+  Notify-on-email:
+  runs-on: ubuntu-latest
+  if: always()
+  needs: Deploy
+  name: EmailNotify
+    steps:
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          # Required mail server port:
+          server_port: 465
+          # Optional (recommended): mail server username:
+          username: ${{secrets.MAIL_USERNAME}}
+          # Optional (recommended) mail server password:
+          password: ${{secrets.MAIL_PASSWORD}}
+          # Required mail subject:
+          subject: Github Actions job result
+          # Optional plain body:
+          body: Build job of ${{github.repository}} completed successfully!
+          # Required recipients' addresses:
+          to: chakravarthy.ncs@gmail.com
+          # Required sender full name (address can be skipped):
+          from: GitHub Actions test Run # <user@example.com>
+          
