@@ -56,20 +56,20 @@ jobs:
         name: gitHub-actions-artifact
         
   Notify-on-email:
-  runs-on: ubuntu-latest
-  if: always()
-  needs: deploy_to_test-env
-  name: Email Notify
-    steps:
-      - name: Send mail
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{secrets.MAIL_USERNAME}}
-          password: ${{secrets.MAIL_PASSWORD}}
-          subject: Github Actions job result
-          body: Build job of ${{github.repository}} completed successfully!
-          to: chakravarthy.ncs@gmail.com
-          from: GitHub Actions test Run # <user@example.com>
+    runs-on: ubuntu-latest
+    if: always()
+    needs: deploy_to_test-env
+    name: Email Notify
+      steps:
+        - name: Send mail
+          uses: dawidd6/action-send-mail@v3
+          with:
+            server_address: smtp.gmail.com
+            server_port: 465
+            username: ${{secrets.MAIL_USERNAME}}
+            password: ${{secrets.MAIL_PASSWORD}}
+            subject: Github Actions job result
+            body: Build job of ${{github.repository}} completed successfully!
+            to: chakravarthy.ncs@gmail.com
+            from: GitHub Actions test Run
           
