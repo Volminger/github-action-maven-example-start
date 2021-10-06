@@ -31,6 +31,20 @@ jobs:
         name: gitHub-actions-artifact
         path: staging
         
+  
+  sonarCloudTrigger:
+    needs: build
+    name: SonarCloud Trigger
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@master
+      - name: Analyze with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          
   deploy_to_test-env:
     runs-on: ubuntu-latest
     needs: build
@@ -40,4 +54,5 @@ jobs:
     - name: Download a Deployment Zip
       uses: actions/download-artifact@v2
       with:
-        name: gitHub-actions-artifact
+        name: deployment_zip
+   
