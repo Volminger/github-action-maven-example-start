@@ -3,7 +3,7 @@ name: Java maven cicd
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ master, samanthchakravarthy-test-commit ]
   pull_request:
     branches: [ master ]
 
