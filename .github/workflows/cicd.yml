@@ -30,3 +30,15 @@ jobs:
       with:
         name: gitHub-actions-artifact
         path: staging
+        
+  deploy_to_test-env:
+    runs-on: ubuntu-latest
+    needs: build
+    #if: github.event_name != 'pull_request'
+    environment: test-environment
+    steps:
+    - name: Download a Deployment Zip
+      uses: actions/download-artifact@v2
+      with:
+        name: deployment_zip
+   
