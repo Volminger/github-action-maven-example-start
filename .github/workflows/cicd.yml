@@ -55,6 +55,23 @@ jobs:
       with:
         name: gitHub-actions-artifact
         
+  publish-snapshot:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up settings.xml for GitHub Packages
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Publish SNAPSHOT version to GitHub Packages 
+        run: mvn -B --no-transfer-progress deploy -DskipTests --projects github-action-maven-example-start
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   Notify-on-email:
     runs-on: ubuntu-latest
     if: always()
