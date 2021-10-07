@@ -15,6 +15,7 @@
         <sonar.organization>samanthchakravarthy</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
+feature_test
          
      <distributionManagement>
         <repository>
@@ -23,6 +24,9 @@
             <url>https://maven.pkg.github.com/samanthchakravarthy/github-action-maven-example-start</url>
         </repository>
     </distributionManagement>
+
+    
+ master
         
     <build>
         <plugins>
