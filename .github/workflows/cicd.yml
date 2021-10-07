@@ -68,7 +68,7 @@ jobs:
           java-version: 11
 
       - name: Publish SNAPSHOT version to GitHub Packages 
-        run: mvn -B --no-transfer-progress deploy
+        run: mvn deploy:deploy-file
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
