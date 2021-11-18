@@ -38,11 +38,6 @@ jobs:
           with:
             name: Package
             path: staging
-
-  release:
-    runs-on: ubuntu-latest
-    needs: [publish-job]
-    steps:
         - uses: actions/upload-artifact@v2
           with:
             name: my-artifact
