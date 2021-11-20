@@ -40,11 +40,7 @@ jobs:
           java-version: 17
       - run: mvn -B package -f pom.xml -DskipTests
       - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Package
-          path: staging
       - uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: staging
+          path: mesh_comm/staging
