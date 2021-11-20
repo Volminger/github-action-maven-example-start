@@ -51,7 +51,7 @@ jobs:
         # Stage the file, commit and push
         git add docs/javadoc
         git commit -m "Doc: regenerate javadocs"
-        git push origin master
+        git push origin ${GITHUB_REF##*/}
 
   publish-job:
     runs-on: ubuntu-latest
