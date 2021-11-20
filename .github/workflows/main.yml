@@ -40,7 +40,7 @@ jobs:
       with:
         java-version: 17
     - name: Generate javadocs
-      run: javadoc -d docs/javadoc/ -sourcepath src/main/java/ -subpackages components config devices
+      run: javadoc -d docs/javadoc/ $(find src/main/java -type f)
 
   publish-job:
     runs-on: ubuntu-latest
