@@ -27,6 +27,21 @@ jobs:
     - name: Build project with Maven
       run: mvn -B package -f pom.xml
 
+  gen-javadocs:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./mesh_comm
+    needs: [build_and_test]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 17
+      uses: actions/setup-java@v1
+      with:
+        java-version: 17
+    - name: Generate javadocs
+      run: javadoc -d docs/javadoc/ -sourcepath src/main/java/ -subpackages components config devices
+
   publish-job:
     runs-on: ubuntu-latest
     defaults:
