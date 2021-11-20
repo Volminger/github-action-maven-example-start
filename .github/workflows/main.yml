@@ -40,7 +40,7 @@ jobs:
       with:
         java-version: 17
     - name: Generate javadocs
-      run: javadoc -d docs/javadoc/ $(find src/main/java -type f)
+      run: javadoc -notimestamp -d docs/javadoc/ $(find src/main/java -type f)
     - name: setup git config
       run: |
         # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
