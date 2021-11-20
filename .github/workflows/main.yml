@@ -41,6 +41,17 @@ jobs:
         java-version: 17
     - name: Generate javadocs
       run: javadoc -d docs/javadoc/ $(find src/main/java -type f)
+    - name: setup git config
+      run: |
+        # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+    - name: commit
+      run: |
+        # Stage the file, commit and push
+        git add docs/javadoc
+        git commit -m "Doc: regenerate javadocs"
+        git push origin master
 
   publish-job:
     runs-on: ubuntu-latest
