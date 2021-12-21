@@ -1,4 +1,4 @@
-name: Publish package to GitHub Packages
+name: Publish GitHub Packages
 on:
   release:
     types: [created]
@@ -18,3 +18,4 @@ jobs:
         run: mvn --batch-mode deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
