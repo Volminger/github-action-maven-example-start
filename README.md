@@ -4,4 +4,4 @@ Link to tutorial: https://medium.com/@alexander.volminger/ci-cd-for-java-maven-u
 
 
 package test
-12345
+123456
