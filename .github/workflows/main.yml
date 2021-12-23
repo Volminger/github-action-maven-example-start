@@ -1,5 +1,5 @@
 
-name: Maven Package
+name: test
 
 on:
   push:
