@@ -3,7 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+        
+
+    <groupId>org.kth</groupId>
+    <artifactId>github-action-maven-tutorial</artifactId>
+    <version>1.0-SNAPSHOT</version>
          
+                  
   <distributionManagement>
           <repository>
           <id>github</id>
@@ -11,11 +18,6 @@
           <url>https://user:mupadh@maven.pkg.github.com/mupadh/github-action-maven-example-start</url>
           </repository>
   </distributionManagement>
-        
-
-    <groupId>org.kth</groupId>
-    <artifactId>github-action-maven-tutorial</artifactId>
-    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
