@@ -29,11 +29,8 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Publish to GitHub Packages Apache Maven
-      
+      run: mvn deploy -Dregistry=https://maven.pkg.github.com/mupadh -Dtoken=$GITHUB_TOKEN
       env:
           GITHUB_USER_REF: ${{ secrets.GIT_USERNAME }}
           GITHUB_TOKEN_REF: ${{ secrets.GIT_TOKEN }}
-      run: |
-        mkdir ~/.m2
-        echo "<settings><servers><server><id>github</id><username>OWNER</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > ~/.m2/settings.xml
-        mvn deploy
+     
