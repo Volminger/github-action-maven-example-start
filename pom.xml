@@ -15,7 +15,7 @@
           <repository>
           <id>github</id>
           <name>mupadh</name>
-          <url>https://user:mupadh@maven.pkg.github.com/mupadh/github-action-maven-example-start</url>
+          <url>https://maven.pkg.github.com/mupadh/github-action-maven-example-start</url>
           </repository>
   </distributionManagement>
 
