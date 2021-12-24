@@ -22,15 +22,16 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        server-username: GITHUB_USER_REF  # env variable name for username
-        server-password: GITHUB_TOKEN_REF
+        server-username: GITHUB_USER  # env variable name for username
+        server-password: GITHUB_TOKEN
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
     - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -Dregistry=https://maven.pkg.github.com/mupadh -Dtoken=$GITHUB_TOKEN
+      run: mvn --settings settings.xml deploy
       env:
-          GITHUB_USER_REF: ${{ secrets.GIT_USERNAME }}
-          GITHUB_TOKEN_REF: ${{ secrets.GIT_TOKEN }}
+          GITHUB_USER: ${{ secrets.GIT_USERNAME }}
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+       
      
