@@ -25,6 +25,10 @@ jobs:
         run: |
           echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)"
           echo "::set-output name=ts::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .ts$ | xargs)"
+          echo $ts
+      - name: files
+        run: ${{ steps.changes.outputs.ts }}
+          
   lint:
     runs-on: ubuntu-latest
     # require the first job to have ran
