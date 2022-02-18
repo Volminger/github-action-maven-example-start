@@ -24,20 +24,21 @@ jobs:
         id: changes
         # Set outputs using the command.
         run: |
+          git show --name-only 83c7b62211d2b5260a87cfcf842b8ae781bb8800
           #echo "::set-output name=all::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)"
           #git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }}
           echo "::set-output name=ts::$(git show --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .ts$ | xargs)"
          # echo $ts
-      - name: files
-        run: ${{ steps.changes.outputs.ts }}
+#       - name: files
+#         run: ${{ steps.changes.outputs.ts }}
           
-  lint:
-    runs-on: ubuntu-latest
-    # require the first job to have ran
-    needs: changedfiles
-    # only run there are changed files
-    if: ${{needs.changedfiles.outputs.ts== 'success'}}
-#     if: ${{needs.changedfiles.outputs.ts}}
-    steps:
-      - name: echo changed files
-        run: echo ${{needs.changedfiles.outputs.ts}}
+#   lint:
+#     runs-on: ubuntu-latest
+#     # require the first job to have ran
+#     needs: changedfiles
+#     # only run there are changed files
+#     if: ${{needs.changedfiles.outputs.ts== 'success'}}
+# #     if: ${{needs.changedfiles.outputs.ts}}
+#     steps:
+#       - name: echo changed files
+#         run: echo ${{needs.changedfiles.outputs.ts}}
