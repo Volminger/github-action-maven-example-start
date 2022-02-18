@@ -25,7 +25,7 @@ jobs:
         # Set outputs using the command.
         run: |
           git show --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} >> test.txt
-          value= $(grep -i -c src/main/java test.txt) || true
+          value=$(grep -i -c src/main/java test.txt) || true
           if [ $value != 0 ]
           then
             echo "path exist"
