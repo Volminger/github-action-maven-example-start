@@ -43,7 +43,7 @@ jobs:
         - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
         - uses: actions/upload-artifact@v1
           with:
-            name: Package
+            name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
             path: staging
 
   build-docker-image:
