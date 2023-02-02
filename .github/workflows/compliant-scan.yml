@@ -21,11 +21,12 @@ jobs:
       - name: Execute Scan
         uses: sonarsource/sonarqube-scan-action@master
         with:
-          projectBaseDir: "/home/runner/work"
+          projectBaseDir: "./"
           args: >
-            -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.tests=tests/
             -Dsonar.verbose=true
+            -Dsonar.organization=thisiscpta
+            -Dsonar.projectKey=thisiscpta_github-action-maven-example-start
+
         env:
             SONAR_TOKEN: "ac6f80950a393d4b6ba0c524b13125a773b738cd"
             SONAR_HOST_URL: "https://sonarcloud.io"
