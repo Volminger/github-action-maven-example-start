@@ -81,7 +81,7 @@ jobs:
 
   jobs:
     name: call-workflow-passing-data
-    uses: thisiscpta/github-action-maven-example-start/.github/workflows/compliant-scan.yml@sonar_scan
+    uses: ./.github/workflows/compliant-scan.yml
     with:
           config-path: .github/labeler.yml
     secrets:
