@@ -22,5 +22,5 @@ jobs:
         uses: sonarsource/sonarqube-scan-action@master
         env:
             SONAR_TOKEN: "ac6f80950a393d4b6ba0c524b13125a773b738cd"
-            SONAR_HOST_URL: "https://sonarcloud.io/organizations/thisiscpta/projects"
+            SONAR_HOST_URL: "https://sonarcloud.io"
               
