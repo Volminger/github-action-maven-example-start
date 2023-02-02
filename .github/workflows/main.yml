@@ -78,3 +78,11 @@ jobs:
           echo "PUBLISH_PROFILE_VAR_NAME=AZURE_FUNCTIONAPP_PUBLISH_PROFILE_PROD" >> $GITHUB_ENV
           echo $GITHUB_ENV
           echo ${{ github.ref }}
+
+  jobs:
+    name: call-workflow-passing-data
+    uses: thisiscpta/github-action-maven-example-start/.github/workflows/compliant-scan.yml@main
+    with:
+          config-path: .github/labeler.yml
+    secrets:
+        envPAT: ${{ secrets.URL }}
