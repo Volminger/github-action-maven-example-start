@@ -80,7 +80,7 @@ jobs:
           echo ${{ github.ref }}
 
   jobs:
-    name: call-workflow-passing-data
+    name: perform compliant checks
     uses: ./.github/workflows/compliant-scan.yml
     with:
           config-path: .github/labeler.yml
