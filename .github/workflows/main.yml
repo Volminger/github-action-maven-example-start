@@ -34,7 +34,7 @@ jobs:
 
   compliance_checks:
       needs: [build_and_test]
-      name: Compliance Checks
+      name: Compliance checks
       uses: ./.github/workflows/compliant-scan.yml
       with:
          config-path: .github/labeler.yml
