@@ -7,9 +7,9 @@ on:
     secrets:
       envPAT:
         required: true
-
- jobs:
-    sona_scan:
+        
+jobs:
+ sona_scan:
     runs-on: ubuntu-latest
     steps:
       - name: Not on Monday or Wednesday
