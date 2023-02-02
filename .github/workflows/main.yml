@@ -46,21 +46,6 @@ jobs:
           with:
             name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
             path: staging
-
-  sonarqube:
-    runs-on: ubuntu-latest
-    needs: [build_and_test]
-    
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-        fetch-depth: 0
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         
   build-docker-image:
     name: Publish to Docker Hub
