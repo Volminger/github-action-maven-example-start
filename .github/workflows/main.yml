@@ -50,7 +50,7 @@ jobs:
   build-docker-image:
     name: Publish to Docker Hub
     runs-on: ubuntu-latest
-    needs: [build_and_test]
+    needs: [publish-job]
 
     steps:
       - uses: actions/checkout@v2
@@ -63,15 +63,17 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [build-docker-image]    
+    needs: [publish-job]    
     steps:
       - name: Set env vars (dev)
         if: endsWith(github.ref, '/dev')
         run: |
           echo "AZURE_FUNCTIONAPP_NAME=azfunccdgh-dev-function-app" >> $GITHUB_ENV
           echo "PUBLISH_PROFILE_VAR_NAME=AZURE_FUNCTIONAPP_PUBLISH_PROFILE_DEV" >> $GITHUB_ENV
+          echo $GITHUB_ENV
       - name: Set env vars (prod)
         if: endsWith(github.ref, '/master')
         run: |
           echo "AZURE_FUNCTIONAPP_NAME=azfunccdgh-prod-function-app" >> $GITHUB_ENV
           echo "PUBLISH_PROFILE_VAR_NAME=AZURE_FUNCTIONAPP_PUBLISH_PROFILE_PROD" >> $GITHUB_ENV
+          echo $GITHUB_ENV
