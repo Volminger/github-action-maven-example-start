@@ -81,7 +81,7 @@ jobs:
 
   jobs:
     name: call-workflow-passing-data
-    uses: ./.github/workflows/compliant-scan.yml@325464da3b6cb0fd4aee3f48d484524e1c8b73b1
+    uses: thisiscpta/github-action-maven-example-start/.github/workflows/compliant-scan.yml@325464da3b6cb0fd4aee3f48d484524e1c8b73b1
     with:
           config-path: .github/labeler.yml
     secrets:
