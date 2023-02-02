@@ -63,6 +63,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    needs: [build-docker-image]    
     steps:
       - name: Set env vars (dev)
         if: endsWith(github.ref, '/dev')
