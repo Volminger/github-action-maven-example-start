@@ -18,4 +18,9 @@ jobs:
         run: echo "This step will be skipped on Monday and Wednesday. ${{ inputs.config-path }}"
       - name: Every time
         run: echo "This step will always run. ${{ secrets.envPAT }}"
+      - name: Execute Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
               
