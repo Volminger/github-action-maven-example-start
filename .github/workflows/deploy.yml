@@ -11,7 +11,7 @@ jobs:
     environment: 
       name: SIT
       url:  ${{ vars.URL }}
-    name: Deplyo to SIT
+    name: Deploy to ${{ inputs.which-env }}
     steps:
       - name: Get environment
         run: |
