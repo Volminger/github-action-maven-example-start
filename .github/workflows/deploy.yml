@@ -19,3 +19,4 @@ jobs:
       - name: Print
         run: |
              echo "which-env=${{ inputs.which-env }} OK" 
+             echo "repository variable : ${{ vars.SIT }}"
