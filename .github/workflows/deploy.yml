@@ -1,1 +1,23 @@
-f
+on:
+  workflow_call:
+    inputs:
+      which-env:
+        required: true
+        type: string
+       
+jobs:
+ deploy_sit:
+    runs-on: ubuntu-latest
+    environment: 
+      name: SIT
+      url: https://github.com
+    name: Deply to SIT
+    steps:
+      - name: Get SonarQube projectKey
+        run: |
+             echo "projectKey=${{ github.repository_owner }}_$(basename ${{ github.repository }})" >> $GITHUB_ENV
+      - name: Print input variables
+        if: github.event.schedule != '30 5 * * 1,3'
+        run: echo "inputs.config-path = ${{ inputs.which-env }}, owner=${{ github.repository_owner }}, projectKey= ${{ env.projectKey }}, truncate repo=${GITHUB_REPOSITORY#*/}"
+
+
