@@ -11,9 +11,9 @@ jobs:
     environment: 
       name: SIT
       url: https://github.com
-    name: Deply to SIT
+    name: Deplyo to SIT
     steps:
-      - name: Get SonarQube projectKey
+      - name: Get environment
         run: |
              echo "projectKey=${{ github.repository_owner }}_$(basename ${{ github.repository }})" >> $GITHUB_ENV
       - name: Print input variables
