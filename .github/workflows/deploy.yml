@@ -18,7 +18,7 @@ jobs:
              echo "projectKey=${{ github.repository_owner }}_$(basename ${{ github.repository }})" >> $GITHUB_ENV
       - name: Print
         run: |
-             echo "which-env=${{ inputs.which-env }} OK" 
+             echo "which-env=${{ inputs.which-env }}" 
              echo "repository variable URL : ${{ vars.URL }}"
              echo "password secrets : ${{ secrets.SIT_PASSWORD }}"
              echo "username secrets : ${{ secrets.SIT_USERNAME }}"
