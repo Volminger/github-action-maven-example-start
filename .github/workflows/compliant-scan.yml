@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     name: SonarQube scan
     steps:
-      - name: get-name
+      - name: Get SonarQube projectKey
         run: |
              echo "projectKey=${{ github.repository_owner }}_$(basename ${{ github.repository }})" >> $GITHUB_ENV
       - name: Print input variables
@@ -23,7 +23,7 @@ jobs:
           args: >
             -Dsonar.verbose=true
             -Dsonar.organization=${{ github.repository_owner }}
-            -Dsonar.projectKey=thisiscpta_github-action-maven-example-start
+            -Dsonar.projectKey=${{ env.projectKey }}
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             SONAR_HOST_URL:  ${{ secrets.SONAR_HOST_URL }}
