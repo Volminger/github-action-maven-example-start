@@ -19,6 +19,6 @@ jobs:
       - name: Print
         run: |
              echo "which-env=${{ inputs.which-env }}" 
-             echo "repository variable URL : ${{ vars.URL }}"
-             echo "password secrets : ${{ secrets.SIT_PASSWORD }}"
-             echo "username secrets : ${{ secrets.SIT_USERNAME }}"
+             echo "${{ inputs.which-env }} variable URL : ${{ vars.URL }}"
+             echo "${{ inputs.which-env }} password secrets : ${{ secrets.SIT_PASSWORD }}"
+             echo "${{ inputs.which-env }} username secrets : ${{ secrets.SIT_USERNAME }}"
