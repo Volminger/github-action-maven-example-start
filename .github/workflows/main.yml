@@ -39,7 +39,7 @@ jobs:
       with:
          config-path: .github/labeler.yml
       secrets:
-         envPAT: ${{ secrets.URL }}
+            inherit
         
   package-job:
   
