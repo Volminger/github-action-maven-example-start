@@ -18,4 +18,4 @@ jobs:
              echo "projectKey=${{ github.repository_owner }}_$(basename ${{ github.repository }})" >> $GITHUB_ENV
       - name: Print
         run: |
-             echo "which-env=${{ inputs.which-env }}" 
+             echo "which-env=${{ inputs.which-env }} OK" 
