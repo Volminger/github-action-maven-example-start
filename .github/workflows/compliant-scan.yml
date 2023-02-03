@@ -25,7 +25,7 @@ jobs:
             -Dsonar.projectKey=thisiscpta_github-action-maven-example-start
 
         env:
-            SONAR_TOKEN: "ac6f80950a393d4b6ba0c524b13125a773b738cd"
-            SONAR_HOST_URL: "https://sonarcloud.io"
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            SONAR_HOST_URL: ${{ SONAR_HOST_URL }}
 
               
