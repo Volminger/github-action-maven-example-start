@@ -93,7 +93,7 @@ jobs:
 
   deploy_to_env:
       needs: [deploy_env_setup]
-      name: Deply to SIT
+      name: Deploy to SIT
       uses: ./.github/workflows/deploy.yml
       with:
          which-env: SIT
