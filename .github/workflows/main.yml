@@ -74,7 +74,7 @@ jobs:
 
   deploy_env_setup:
     runs-on: ubuntu-latest
-    name: Deploy to environment
+    name: Prepare environment
     needs: [package-job]    
     steps:
       - name: Set env vars (dev)
