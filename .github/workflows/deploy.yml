@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: 
       name: SIT
-      url: https://github.com
+      url:  ${{ vars.URL }}
     name: Deplyo to SIT
     steps:
       - name: Get environment
@@ -20,3 +20,5 @@ jobs:
         run: |
              echo "which-env=${{ inputs.which-env }} OK" 
              echo "repository variable URL : ${{ vars.URL }}"
+             echo "password secrets : ${{ secrets.SIT_PASSWORD }}"
+             echo "username secrets : ${{ secrets.SIT_USERNAME }}"
