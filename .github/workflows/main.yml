@@ -72,7 +72,7 @@ jobs:
       - name: Publish Docker image
         run: docker push ${{ secrets.DOCKER_REPO }}
 
-  deploy_to_env:
+  deploy_env_setup:
     runs-on: ubuntu-latest
     name: Deploy to environment
     needs: [package-job]    
@@ -91,3 +91,11 @@ jobs:
           echo $GITHUB_ENV
           echo ${{ github.ref }}
 
+  deploy_to_env:
+      needs: [deploy_env_setup]
+      name: Deply to SIT
+      uses: ./.github/workflows/deploy.yml
+      with:
+         which-env: SIT
+      secrets:
+            inherit
