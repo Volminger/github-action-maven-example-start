@@ -90,7 +90,12 @@ jobs:
           echo "PUBLISH_PROFILE_VAR_NAME=AZURE_FUNCTIONAPP_PUBLISH_PROFILE_PROD" >> $GITHUB_ENV
           echo $GITHUB_ENV
           echo ${{ github.ref }}
-
+      - name: Output SSH key to file
+        run: |
+          mkdir ~/.ssh
+          echo "${{secrets.ANSIBLE_ENGINE_SSH_KEY}}" > ~/.ssh/id_rsa_cassandra
+          chmod 600 ~/.ssh/id_rsa
+          
   deploy_to_env:
       needs: [deploy_env_setup]
       name: Deploy to SIT
