@@ -98,7 +98,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa_cassandra
           echo "version=123test" >> $GITHUB_OUTPUT
           echo `$(cat ~/.ssh/id_rsa_cassandra)`
-          echo "HELLO ${{ steps.testingop.outputs.version }}"
+          echo "HELLO ${{ steps.testingop.outputs.version.value }}"
           
   deploy_to_env:
       needs: [deploy_env_setup]
