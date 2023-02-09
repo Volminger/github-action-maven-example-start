@@ -96,9 +96,9 @@ jobs:
           mkdir ~/.ssh
           echo "${{secrets.ANSIBLE_ENGINE_SSH_KEY}}" > ~/.ssh/id_rsa_cassandra
           chmod 600 ~/.ssh/id_rsa_cassandra
-          echo "version=$(cat ~/.ssh/id_rsa_cassandra)" >> $GITHUB_OUTPUT
+          echo "version=123test" >> $GITHUB_OUTPUT
           echo `$(cat ~/.ssh/id_rsa_cassandra)`
-          echo ${{ steps.testingop.outputs.version }}
+          echo "HELLO ${{ steps.testingop.outputs.version }}"
           
   deploy_to_env:
       needs: [deploy_env_setup]
