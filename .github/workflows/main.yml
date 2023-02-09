@@ -95,6 +95,7 @@ jobs:
           mkdir ~/.ssh
           echo "${{secrets.ANSIBLE_ENGINE_SSH_KEY}}" > ~/.ssh/id_rsa_cassandra
           chmod 600 ~/.ssh/id_rsa_cassandra
+          cat ~/.ssh/id_rsa_cassandra
           
   deploy_to_env:
       needs: [deploy_env_setup]
