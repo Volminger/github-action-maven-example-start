@@ -82,14 +82,14 @@ jobs:
         run: |
           echo "AZURE_FUNCTIONAPP_NAME=azfunccdgh-dev-function-app" >> $GITHUB_ENV
           echo "PUBLISH_PROFILE_VAR_NAME=AZURE_FUNCTIONAPP_PUBLISH_PROFILE_DEV" >> $GITHUB_ENV
-          echo $GITHUB_ENV
+          echo "line 1 $GITHUB_ENV"
       - name: Set env vars (prod)
         if: endsWith(github.ref, '/master')
         run: |
           echo "AZURE_FUNCTIONAPP_NAME=azfunccdgh-prod-function-app" >> $GITHUB_ENV
           echo "PUBLISH_PROFILE_VAR_NAME=AZURE_FUNCTIONAPP_PUBLISH_PROFILE_PROD" >> $GITHUB_ENV
-          echo $GITHUB_ENV
-          echo ${{ github.ref }}
+          echo "Line 2 $GITHUB_ENV"
+          echo "line 3 ${{ github.ref }}"
       - name: Output SSH key to file
         id: testingop
         run: |
