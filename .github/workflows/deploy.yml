@@ -23,7 +23,6 @@ jobs:
              echo "${{ inputs.which-env }} password secrets : ${{ secrets.SIT_PASSWORD }}"
              echo "${{ inputs.which-env }} username secrets : ${{ secrets.SIT_USERNAME }}"
              
-  call-workflow-passing-data:
-    uses: octo-org/example-repo/.github/workflows/reusable-workflow.yml@main
-    with:
+ call-workflow-passing-data:
+    uses: thisiscpta-Organization/testproject/.github/workflows/blank.yml@main
     secrets: inherit
