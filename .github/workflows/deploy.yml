@@ -9,7 +9,7 @@ on:
         type: string
 jobs:
  deploy_sit:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: 
       name: SIT
       url:  ${{ vars.URL }}
