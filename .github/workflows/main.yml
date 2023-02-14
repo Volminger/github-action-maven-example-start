@@ -1,5 +1,4 @@
-
-name: Maven CI/CD
+name: Maven Continous Integration and Delivery
 
 on:
  push:
@@ -17,10 +16,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 16
+    - name: Set up JDK 14
       uses: actions/setup-java@v1
       with:
-        java-version: 16
+        java-version: 14
 
     - name: Cache the Maven packages to speed up build
       uses: actions/cache@v1
@@ -31,11 +30,7 @@ jobs:
         
     - name: Build project with Maven
       run: mvn -B package --file pom.xml
-    - name: Build jar 
-      run: mkdir staging && cp target/*jar-with-dependencies.jar staging
-    - name: write file
-      run:  echo 'alpha'    > alpha.txt
-     
+
   compliance_checks:
       needs: [build_and_test]
       name: Compliance checks
@@ -45,33 +40,34 @@ jobs:
       secrets:
             inherit
         
-  create-release:  
+  package-job:
+  
       runs-on: ubuntu-latest
-      permissions:
-        contents: write
-      name: Create release and Upload asset
+      name: Package job
       needs: [compliance_checks]
       steps:
-        - name: Create Release
-          id: create_release
-          uses: actions/create-release@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - uses: actions/checkout@v2
+        - uses: actions/setup-java@v1
           with:
-           tag_name: v1.0-alpha
-           release_name: Release v1.0-alpha
-           draft: false
-           prerelease: false
-        - name: Upload Release Asset
-          id: upload-release-asset 
-          uses: actions/upload-release-asset@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            java-version: 14
+        - run: mvn -B package --file pom.xml -DskipTests
+        - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
+        - uses: actions/upload-artifact@v1
           with:
-           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-           asset_path: ./alpha.txt
-           asset_name: alpha.txt
-           asset_content_type: application/gzip
+            name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
+            path: staging
+        
+  create-release:
+    name: Create release
+    runs-on: ubuntu-latest
+    permissions: 
+      contents: write
+    needs: [package-job]
+    steps:
+      - name: Download artefact
+        uses: actions/download-artifact@v1
+        with:
+          name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
           
   deploy_to_env:
       needs: [create-release]
