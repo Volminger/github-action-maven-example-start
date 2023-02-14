@@ -4,7 +4,9 @@ on:
       which-env:
         required: true
         type: string
-       
+      which-asset:
+        required: true
+        type: string
 jobs:
  deploy_sit:
     runs-on: ubuntu-latest
@@ -25,6 +27,6 @@ jobs:
       - name: Get release assest
         uses: actions/download-artifact@v3
         with:
-            name: my-artifact.jar
+            name: ${{ inputs.which-asset }}
       - name: Display structure of downloaded files
         run: ls -R
