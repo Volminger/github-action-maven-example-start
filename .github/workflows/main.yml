@@ -45,10 +45,10 @@ jobs:
       runs-on: ubuntu-latest
       permissions:
         contents: write
-      name: create release and upload asset
+      name: Create release and Upload asset
       needs: [compliance_checks]
       steps:
-        - name: buldpackage
+        - name: Build Package
           id: dobuild
         - uses: actions/checkout@v2
         - uses: actions/setup-java@v1
@@ -56,7 +56,6 @@ jobs:
             java-version: 14
         - run: mvn -B package --file pom.xml -DskipTests
         - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
-        
         - name: Create Release
           id: create_release
           uses: actions/create-release@v1
