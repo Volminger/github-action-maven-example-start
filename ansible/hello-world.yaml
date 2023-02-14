@@ -6,5 +6,4 @@
         content: hello-world-123
         dest: /tmp/testfile.txt
         mode: 0644
-    - name: run local command
-      local_action: ls -la
+
