@@ -9,5 +9,5 @@
         mode: 0644
     - name: echo a variable
       debug:
-        msg: "{{ which_asset }}"
+        msg: "{{ which-asset }}"
 
