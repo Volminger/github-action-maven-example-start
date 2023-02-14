@@ -1,14 +1,11 @@
 - name: This is a hello-world example
   hosts: all
-  vars:
-    my_env: "{{ which-env }}"
-    my_asset: "{{ which-asset }}"
+
   tasks:
     - name: Create a file called '/tmp/pestfile.txt' with the content 'hello world 123 from thisiscpta'.
       copy:
         content: hello-world-123 thisisicpta
         dest: /tmp/pestfile.txt
         mode: 0644
-    - name: Display parms
-      echo environment "{{ my_asset }}"
+
 
