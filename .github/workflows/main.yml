@@ -97,6 +97,6 @@ jobs:
       uses: ./.github/workflows/deploy.yml
       with:
          which-env: SIT
-         which-assest: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
+         which-asset: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
       secrets:
             inherit
