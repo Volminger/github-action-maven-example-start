@@ -52,7 +52,7 @@ jobs:
             java-version: 14
         - run: mvn -B package --file pom.xml -DskipTests
         - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
-        - uses: actions/upload-artifact@v1
+        - uses: actions/upload-artifact@v3
           with:
             name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
             path: staging
@@ -65,7 +65,7 @@ jobs:
     needs: [package-job]
     steps:
       - name: Download artefact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
       - name: Create Release
