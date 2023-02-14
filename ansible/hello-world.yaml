@@ -3,7 +3,7 @@
   tasks:
     - name: Create a file called '/tmp/testfile.txt' with the content 'hello world 123 from thisiscpta'.
       copy:
-        content: hello-world-123
-        dest: /tmp/testfile.txt
+        content: hello-world-123 thisisicpta
+        dest: /tmp/pestfile.txt
         mode: 0644
 
