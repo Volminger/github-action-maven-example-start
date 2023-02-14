@@ -7,5 +7,7 @@
         content: hello-world-123 thisisicpta
         dest: /tmp/pestfile.txt
         mode: 0644
-
+    - name: echo a variable
+      debug:
+        msg: "{{ which_asset }}"
 
