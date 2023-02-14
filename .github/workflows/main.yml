@@ -54,8 +54,8 @@ jobs:
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          with:
-          tag_name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
-          release_name: Release github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
+          tag_name: v1.2-alpha
+          release_name: Release v1.2-alpha
           draft: false
           prerelease: false
        - name: Upload Release Asset
