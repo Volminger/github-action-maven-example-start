@@ -30,3 +30,9 @@ jobs:
             name: ${{ inputs.which-asset }}
       - name: Display structure of downloaded files
         run: ls -R
+
+ deploy_to_env:
+      name: Deploy to SIT
+      uses: ./.github/workflows/ansiblecall.yml
+      secrets:
+            inherit
