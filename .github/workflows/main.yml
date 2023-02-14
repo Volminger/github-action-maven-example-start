@@ -33,7 +33,9 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Build jar 
       run: mkdir staging && cp target/*jar-with-dependencies.jar staging
- 
+    - name: write file
+      run:  echo 'alpha'    > alpha.txt
+     
   compliance_checks:
       needs: [build_and_test]
       name: Compliance checks
@@ -67,8 +69,8 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
            upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-           asset_path: ./staging/github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
-           asset_name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
+           asset_path: ./alpha.txt
+           asset_name: alpha.txt
            asset_content_type: application/gzip
           
   deploy_to_env:
