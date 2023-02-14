@@ -32,7 +32,12 @@ jobs:
         run: ls -R
 
  deploy_to_env:
-      name: Deploy to SIT
+      name: Deploy to Ansible nodes
       uses: ./.github/workflows/ansiblecall.yml
+      with:
+         which-env: ${{ inputs.which-env }}
+         which-asset: ${{ inputs.which-asset }}   
       secrets:
             inherit
+
+            
