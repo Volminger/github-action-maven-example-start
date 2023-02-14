@@ -10,5 +10,5 @@
         dest: /tmp/pestfile.txt
         mode: 0644
     - name: Display parms
-      echo environment {{ my_asset }}
+      echo environment "{{ my_asset }}"
 
