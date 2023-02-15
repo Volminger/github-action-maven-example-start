@@ -10,4 +10,6 @@
     - name: echo a variable
       debug:
         msg: "{{ whichasset }}"
-
+    - name: echo a variable
+      debug:
+        msg: "{{ whichenv }}"
