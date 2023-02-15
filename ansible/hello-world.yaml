@@ -13,3 +13,10 @@
     - name: echo environment
       debug:
         msg: "{{ whichenv }}"
+    - name: transfer package
+      copy:
+      src: "{{ whichasset }}"
+      dest: /home/ansibleuser/"{{ whichasset }}"
+      owner: ansibleuser
+      group: ansibleuser
+      mode: 0644
