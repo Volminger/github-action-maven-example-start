@@ -24,6 +24,9 @@ jobs:
              echo "${{ inputs.which-env }} variable URL : ${{ vars.URL }}"
              echo "${{ inputs.which-env }} password secrets : ${{ secrets.SIT_PASSWORD }}"
              echo "${{ inputs.which-env }} username secrets : ${{ secrets.SIT_USERNAME }}"
+             ssh ansibleuser@node1
+             echo done
+             exit 
       - name: Get release assest
         uses: actions/download-artifact@v3
         with:
