@@ -8,12 +8,12 @@ on:
         required: true
         type: string
 jobs:
- get_release_package:
+ get_release_asset:
     runs-on: self-hosted
     environment: 
       name: SIT
       url:  ${{ vars.URL }}
-    name: Deploying to ${{ inputs.which-env }}
+    name: Download release asset
     steps:
       - name: Get environment
         run: |
@@ -35,8 +35,8 @@ jobs:
 
  deploy_using_ansible:
        runs-on: self-hosted
-       needs: [get_release_package]
-       name: Deploy using Ansible
+       needs: [get_release_asset]
+       name: Deploying to ${{ inputs.which-env }} using Ansible
        steps:
        - uses: actions/checkout@v3
        - name: Move file
