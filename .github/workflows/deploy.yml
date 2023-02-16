@@ -24,20 +24,15 @@ jobs:
              echo "${{ inputs.which-env }} variable URL : ${{ vars.URL }}"
              echo "${{ inputs.which-env }} password secrets : ${{ secrets.SIT_PASSWORD }}"
              echo "${{ inputs.which-env }} username secrets : ${{ secrets.SIT_USERNAME }}"
-             ssh ansibleuser@node1
-             pwd
-             echo *****done*****
-             exit 
       - name: Get release assest
+        id: download
         uses: actions/download-artifact@v3
         with:
             name: ${{ inputs.which-asset }}
             path: ansible/file
-      - name: Display structure of downloaded files
-        run: |
-             ls -R
-             ls -R ansible/files
-
+      - name: 'Echo download path'
+        run: echo ${{steps.download.outputs.download-path}}
+  
  deploy_to_env:
       name: Deploy to Ansible nodes
       uses: ./.github/workflows/ansiblecall.yml
