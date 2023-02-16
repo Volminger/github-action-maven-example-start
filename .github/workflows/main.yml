@@ -62,13 +62,7 @@ jobs:
           run: |
               mkdir staging && cp target/*jar-with-dependencies.jar staging
               echo "thisfilename=$( ls staging )" >> $GITHUB_OUTPUT
-           
-        - name: whereIS the file
-          run: |
-               echo "thatname=whatever" >> $GITHUB_ENV
-               echo thatname=${{ env.thatname }}
-               echo thisfilename=${{ steps.create_file.outputs.thisfilename }}
-          
+                    
         - name: upload file      
           uses: actions/upload-artifact@v3
           with:
@@ -87,9 +81,7 @@ jobs:
       - name: Download artefact
         uses: actions/download-artifact@v3
         with:
-          name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
-      - name: Display structure of downloaded files
-        run: ls -R
+          name: ${{ needs.package-job.outputs.myoutput }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -107,8 +99,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
-          asset_name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
+          asset_path: ./${{ needs.package-job.outputs.myoutput }}
+          asset_name: ${{ needs.package-job.outputs.myoutput }}
           asset_content_type: application/gzip
            
   deploy_to_env:
