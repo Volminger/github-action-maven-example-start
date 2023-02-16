@@ -37,7 +37,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
             name: ${{ inputs.which-asset }}
-            path: /tmp
+            path: ansible/files
       - name: 'Echo download path'
         run: |
            echo ${{steps.download.outputs.download-path}}
@@ -48,9 +48,6 @@ jobs:
        needs: [get_release_asset]
        name: Deploying to ${{ inputs.which-env }} using Ansible
        steps:
-       - name: Move file
-         run: |
-           mv /tmp/${{ inputs.which-asset }} ansible/files
        - name: Run a one-line script
          run: |
              echo Hello, world!
