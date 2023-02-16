@@ -36,7 +36,7 @@ jobs:
       - name: Display structure of downloaded files
         run: |
              ls -R
-             ls -R ansible/file
+             ls -R ansible/files
 
  deploy_to_env:
       name: Deploy to Ansible nodes
