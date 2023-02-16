@@ -35,6 +35,7 @@ jobs:
 
  deploy_to_env:
        runs-on: self-hosted
+       needs: [deploy_sit]
        steps:
        - uses: actions/checkout@v3
        - name: Move file
