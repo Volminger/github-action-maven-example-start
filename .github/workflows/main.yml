@@ -45,6 +45,8 @@ jobs:
       runs-on: ubuntu-latest
       name: Package job
       needs: [compliance_checks]
+      outputs:
+        myoutput: ${{ steps.create_file.outputs.thisfilename }}
       steps:
         - uses: actions/checkout@v2
         - name: set up jdk
@@ -81,7 +83,7 @@ jobs:
     needs: [package-job]
     steps:
       - name: print file in create release
-        run: echo "HERE IT IS:" ${{ steps.create_file.outputs.thisfilename }}
+        run: echo "HERE IT IS:" ${{ needs.package-job.outputs.myoutput }}
       - name: Download artefact
         uses: actions/download-artifact@v3
         with:
