@@ -60,7 +60,12 @@ jobs:
               mkdir staging && cp target/*jar-with-dependencies.jar staging
               echo "thisname=test" >> $GITHUB_ENV
               echo thisname=${{ env.thisname }}
-              
+           
+        - name: whereIS the file
+          run: |
+               echo "thatname=whatever" >> $GITHUB_ENV
+               echo thatname=${{ env.thatname }}
+          
         - name: upload file      
           uses: actions/upload-artifact@v3
           with:
