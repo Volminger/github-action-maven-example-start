@@ -50,15 +50,11 @@ jobs:
         - uses: actions/setup-java@v1
           with:
             java-version: 14
-        - name : create file
         - run: mvn -B package --file pom.xml -DskipTests
         - run: |
               mkdir staging && cp target/*jar-with-dependencies.jar staging
-        - name: print variables
-        - run: |
-              echo "assetname=test" >> $GITHUB_ENV
-              echo assetname=${{ env.FOO }}
-        - name : upload file
+              echo "thisname=test" >> $GITHUB_ENV
+              echo thisname=${{ env.thisname }}
         - uses: actions/upload-artifact@v3
           with:
             name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
