@@ -35,6 +35,7 @@ jobs:
   
  deploy_to_env:
       name: Deploy to Ansible nodes
+      needs: [deploy_sit]
       uses: ./.github/workflows/ansiblecall.yml
       with:
          which-env: ${{ inputs.which-env }}
