@@ -14,7 +14,6 @@ jobs:
         run: |
              echo "projectKey=${{ github.repository_owner }}_$(basename ${{ github.repository }})" >> $GITHUB_ENV
       - name: Print input variables
-        if: github.event.schedule != '30 5 * * 1,3'
         run: echo "inputs.config-path = ${{ inputs.config-path }}, owner=${{ github.repository_owner }}, projectKey= ${{ env.projectKey }}, truncate repo=${GITHUB_REPOSITORY#*/}"
       - name: Execute Scan
         uses: sonarsource/sonarqube-scan-action@master
