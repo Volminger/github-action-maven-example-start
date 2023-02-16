@@ -32,13 +32,15 @@ jobs:
             path: /tmp
       - name: 'Echo download path'
         run: echo ${{steps.download.outputs.download-path}}
-
+      - name: checkout files
+        uses: actions/checkout@v3
+       
  deploy_using_ansible:
        runs-on: self-hosted
        needs: [get_release_asset]
        name: Deploying to ${{ inputs.which-env }} using Ansible
        steps:
-       - uses: actions/checkout@v3
+#       - uses: actions/checkout@v3
        - name: Move file
          run: |
            mv /tmp/${{ inputs.which-asset }} ansible/files
