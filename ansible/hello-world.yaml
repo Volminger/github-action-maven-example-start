@@ -15,7 +15,7 @@
         msg: "{{ whichenv }}"
     - name: transfer package
       copy:
-        src: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
+        src: "{{ whichasset }}"
         dest: /home/ansibleuser/github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
         owner: ansibleuser
         group: ansibleuser
