@@ -60,7 +60,7 @@ jobs:
           run: |
               mkdir staging && cp target/*jar-with-dependencies.jar staging
               echo "thisname=$( ls staging )" >> $GITHUB_OUTPUT
-              echo thisname=${{ outputs.thisname }}
+              echo thisname=${{ steps.create_file.outputs.thisname }}
            
         - name: whereIS the file
           run: |
