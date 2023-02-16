@@ -1,1 +1,2 @@
-Download all artefacts into this folder for deployment to servers.
+Keep directory structure.
+Temporary folder for all artefacts for deployment to servers.
