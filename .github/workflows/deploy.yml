@@ -8,6 +8,13 @@ on:
         required: true
         type: string
 jobs:
+ prepare_workspace:
+    runs-on: self-hosted
+    name: Prepare workspace
+    steps:
+       - name: get repo
+         uses: actions/checkout@v3
+      
  get_release_asset:
     runs-on: self-hosted
     environment: 
@@ -40,8 +47,6 @@ jobs:
        needs: [get_release_asset]
        name: Deploying to ${{ inputs.which-env }} using Ansible
        steps:
-       - name: get repo
-         uses: actions/checkout@v3
        - name: Move file
          run: |
            mv /tmp/${{ inputs.which-asset }} ansible/files
