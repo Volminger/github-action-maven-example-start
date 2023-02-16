@@ -54,7 +54,7 @@ jobs:
         - run: |
               mkdir staging && cp target/*jar-with-dependencies.jar staging
               echo "FOO=$( ls )" >> $GITHUB_ENV
-              echo ***filename***  ${{ env.FOO }}
+              echo ***filename***  ${{ GITHUB_ENV.FOO }}
         - uses: actions/upload-artifact@v3
           with:
             name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
