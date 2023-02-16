@@ -56,15 +56,17 @@ jobs:
           run: mvn -B package --file pom.xml -DskipTests
           
         - name: create file
+          id: create_file
           run: |
               mkdir staging && cp target/*jar-with-dependencies.jar staging
-              echo "thisname=test" >> $GITHUB_ENV
-              echo thisname=${{ env.thisname }}
+              echo "thisname=test" >> $GITHUB_OUTPUT
+              echo thisname=${{ steps.create_file.outputs.thisname }}
            
         - name: whereIS the file
           run: |
                echo "thatname=whatever" >> $GITHUB_ENV
                echo thatname=${{ env.thatname }}
+               echo thisname=${{ steps.create_file.outputs.thisname }}
           
         - name: upload file      
           uses: actions/upload-artifact@v3
