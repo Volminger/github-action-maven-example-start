@@ -47,14 +47,21 @@ jobs:
       needs: [compliance_checks]
       steps:
         - uses: actions/checkout@v2
+        - name: set up jdk
         - uses: actions/setup-java@v1
           with:
             java-version: 14
-        - run: mvn -B package --file pom.xml -DskipTests
-        - run: |
+            
+        - name: generate file
+          run: mvn -B package --file pom.xml -DskipTests
+          
+        - name: create file
+          run: |
               mkdir staging && cp target/*jar-with-dependencies.jar staging
               echo "thisname=test" >> $GITHUB_ENV
               echo thisname=${{ env.thisname }}
+              
+        - name: upload file      
         - uses: actions/upload-artifact@v3
           with:
             name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
