@@ -35,10 +35,11 @@ jobs:
 
  deploy_to_env:
        runs-on: self-hosted
-       name: Run a one-line script
-       run: |
-           echo Hello, world!
-           ansible-playbook -u ansibleuser --extra-vars "whichenv=${{ inputs.which-env }} whichasset=${{ inputs.which-asset }}" -i ansible/inventory ansible/hello-world.yaml 
+       steps:
+         - name: Run a one-line script
+           run: |
+             echo Hello, world!
+             ansible-playbook -u ansibleuser --extra-vars "whichenv=${{ inputs.which-env }} whichasset=${{ inputs.which-asset }}" -i ansible/inventory ansible/hello-world.yaml 
 
 # deploy_to_env:
 #      name: Deploy to Ansible nodes
