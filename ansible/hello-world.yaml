@@ -1,5 +1,5 @@
 - name: This is a hello-world example
-  hosts: all
+  hosts: nodes
 
   tasks:
     - name: Create a file called '/tmp/pestfile.txt' with the content 'hello world 123 from thisiscpta'.
