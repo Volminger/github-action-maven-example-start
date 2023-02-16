@@ -36,11 +36,13 @@ jobs:
  deploy_to_env:
        runs-on: self-hosted
        steps:
-         - name: Move file
-           run: |
-             mv ${{steps.download.outputs.download-path}} ansible/files
-         - name: Run a one-line script
-           run: |
+       - uses: actions/checkout@v3
+       - name: Move file
+         run: |
+           mv ${{steps.download.outputs.download-path}} ansible/files
+           echo moving files
+       - name: Run a one-line script
+         run: |
              echo Hello, world!
              ansible-playbook -u ansibleuser --extra-vars "whichenv=${{ inputs.which-env }} whichasset=${{ inputs.which-asset }}" -i ansible/inventory ansible/hello-world.yaml 
 
