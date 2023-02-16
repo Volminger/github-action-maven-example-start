@@ -75,6 +75,8 @@ jobs:
     permissions: 
       contents: write
     needs: [package-job]
+    outputs:
+        myoutput: ${{ needs.package-job.outputs.myoutput }}
     steps:
       - name: print file in create release
         run: echo "HERE IT IS:" ${{ needs.package-job.outputs.myoutput }}
@@ -109,6 +111,6 @@ jobs:
       uses: ./.github/workflows/deploy.yml
       with:
          which-env: SIT
-         which-asset: ${{ needs.package-job.outputs.myoutput }}
+         which-asset: ${{ needs.create-release.outputs.myoutput }}
       secrets:
             inherit
