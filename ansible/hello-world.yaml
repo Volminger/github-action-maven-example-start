@@ -2,10 +2,10 @@
   hosts: nodes
 
   tasks:
-    - name: Create a file called '/tmp/pestfile.txt' with the content 'hello world 123 from thisiscpta'.
+    - name: Create a file called '/tmp/testfile.txt' with the content 'hello world 123 from thisiscpta'.
       copy:
         content: hello-world-123 thisisicpta
-        dest: /tmp/pestfile.txt
+        dest: /tmp/testfile.txt
         mode: 0644
     - name: echo asses
       debug:
