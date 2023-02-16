@@ -29,13 +29,16 @@ jobs:
         uses: actions/download-artifact@v3
         with:
             name: ${{ inputs.which-asset }}
-            path: ansible/files
+            path: tmp
       - name: 'Echo download path'
         run: echo ${{steps.download.outputs.download-path}}
 
  deploy_to_env:
        runs-on: self-hosted
        steps:
+         - name: Move file
+           run: |
+             mv ${{steps.download.outputs.download-path}} ansible/files
          - name: Run a one-line script
            run: |
              echo Hello, world!
