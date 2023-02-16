@@ -32,8 +32,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
             name: ${{ inputs.which-asset }}
+            path: ansible/file
       - name: Display structure of downloaded files
-        run: ls -R
+        run: |
+             ls -R
+             ls -R ansible/file
 
  deploy_to_env:
       name: Deploy to Ansible nodes
