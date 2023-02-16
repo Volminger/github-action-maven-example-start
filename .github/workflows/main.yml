@@ -59,19 +59,18 @@ jobs:
           id: create_file
           run: |
               mkdir staging && cp target/*jar-with-dependencies.jar staging
-              echo "thisname=$( ls staging )" >> $GITHUB_OUTPUT
-              echo thisname=${{ steps.create_file.outputs.thisname }}
+              echo "thisfilename=$( ls staging )" >> $GITHUB_OUTPUT
            
         - name: whereIS the file
           run: |
                echo "thatname=whatever" >> $GITHUB_ENV
                echo thatname=${{ env.thatname }}
-               echo thisname=${{ steps.create_file.outputs.thisname }}
+               echo thisfilename=${{ steps.create_file.outputs.thisfilename }}
           
         - name: upload file      
           uses: actions/upload-artifact@v3
           with:
-            name: github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
+            name: ${{ steps.create_file.outputs.thisfilename }}
             path: staging
         
   create-release:
@@ -81,6 +80,8 @@ jobs:
       contents: write
     needs: [package-job]
     steps:
+      - name: print file in create release
+        run: echo "HERE IT IS:" ${{ steps.create_file.outputs.thisfilename }}
       - name: Download artefact
         uses: actions/download-artifact@v3
         with:
