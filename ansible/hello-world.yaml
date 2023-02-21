@@ -7,18 +7,19 @@
         content: hello-world-123 thisisicpta
         dest: /tmp/testfile.txt
         mode: 0644
-    - name: echo asset
+    - name: Echo Asset
       debug:
         msg: "{{ whichasset }}"
-    - name: echo environment
+    - name: Echo Environment
       debug:
         msg: "{{ whichenv }}"
-    - name: transfer package
+    - name: Transfer Package
       copy:
         src: "{{ whichasset }}"
         dest: /home/ansibleuser/"{{ whichasset }}"
         owner: ansibleuser
         group: ansibleuser
         mode: 0644
- 
-#  dest: /home/ansibleuser/github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
+    - name: Execute Jar
+      shell: ls -al 
+
