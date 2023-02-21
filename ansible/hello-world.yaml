@@ -1,4 +1,4 @@
-- name: This is a hello-world example
+- name: Running Ansible Deployment
   hosts: nodes
 
   tasks:
@@ -7,7 +7,7 @@
         content: hello-world-123 thisisicpta
         dest: /tmp/testfile.txt
         mode: 0644
-    - name: echo asses
+    - name: echo asset
       debug:
         msg: "{{ whichasset }}"
     - name: echo environment
@@ -16,7 +16,9 @@
     - name: transfer package
       copy:
         src: "{{ whichasset }}"
-        dest: /home/ansibleuser/github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar
+        dest: /home/ansibleuser/"{{ whichasset }}"
         owner: ansibleuser
         group: ansibleuser
         mode: 0644
+     - name: Execute the script
+       local_action: command sh ./rundemo.sh
