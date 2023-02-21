@@ -16,7 +16,7 @@
     - name: Transfer Package
       copy:
         src: "{{ whichasset }}"
-        dest: /home/ansibleuser/"{{ whichasset }}"
+        dest: /home/ansibleuser/{{ whichasset }}
         owner: ansibleuser
         group: ansibleuser
         mode: 0644
