@@ -21,4 +21,4 @@
         group: ansibleuser
         mode: 0644
      - name: Execute the script
-       local_action: command sh ./rundemo.sh
+       script: /home/ansibleuser/rundemo.sh
