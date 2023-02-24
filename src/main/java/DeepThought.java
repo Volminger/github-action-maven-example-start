@@ -7,7 +7,7 @@ public class DeepThought {
 
     public int answer_to_the_ultimate_question_of_life_the_universe_and_everything(){
         System.out.println("You have asked the answer to the Ultimate Question of Life, the Universe, and Everything");
-        System.out.println("I need to think a while about that one, come back again in 7.5 million years...");
+        System.out.println("I need to think a while about that one, come back again in 10.00 million years...");
         calculate(); // for 7.5 million years....
         return give_answer();
     }
@@ -17,7 +17,7 @@ public class DeepThought {
             System.out.println(million_years + " million years have passed...");
             think(1);
         }
-        System.out.println("7.5 million years have now passed and I have a answer");
+        System.out.println("10.00 million years have now passed and I have a answer");
     }
 
     private void think(int time){
