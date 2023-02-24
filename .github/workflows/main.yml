@@ -2,7 +2,7 @@ name: Maven Continous Integration and Delivery
 
 on:
  push:
-    branches: [ master ]
+    branches: [ TP-6-Change-million-years ]
  pull_request:
     branches: [ master ]
  workflow_dispatch:
