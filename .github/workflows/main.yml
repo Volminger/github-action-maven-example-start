@@ -36,22 +36,20 @@ jobs:
     - name: Build project with Maven
       run: mvn -B package --file pom.xml
 
-#
-#  compliance_checks:
-#      needs: [build_and_test]
-#      name: Compliance checks
-#      uses: ./.github/workflows/compliant-scan.yml
-#      with:
-#         config-path: .github/labeler.yml
-#      secrets:
-#            inherit
+  compliance_checks:
+      needs: [build_and_test]
+      name: Compliance checks
+      uses: ./.github/workflows/compliant-scan.yml
+      with:
+         config-path: .github/labeler.yml
+      secrets:
+            inherit
         
   package-job:
   
       runs-on: ubuntu-latest
       name: Package job
- #     needs: [compliance_checks]
-      needs: [build_and_test]
+      needs: [compliance_checks]
       outputs:
         myoutput: ${{ steps.create_file.outputs.thisfilename }}
         mybranch: ${{ steps.create_file.outputs.thisbranch }}
