@@ -13,6 +13,9 @@
     - name: Echo Environment
       debug:
         msg: "{{ whichenv }}"
+    - name: Echo Issue
+      debug:
+        msg: "{{ whichissue }}"        
     - name: Transfer Package
       copy:
         src: "{{ whichasset }}"
@@ -20,6 +23,14 @@
         owner: ansibleuser
         group: ansibleuser
         mode: 0644
+    - name: Transfer Package
+      copy:
+        src: update-jira.sh
+        dest: /home/ansibleuser/update-jira.sh
+        owner: ansibleuser
+        group: ansibleuser
+        mode: 0755        
     - name: Execute Jar
       shell: java -jar github-action-maven-tutorial-1.0-SNAPSHOT-jar-with-dependencies.jar App >> verify_program.output
-
+    - name: UpdateJira
+      shell: ./update-jira.sh {{ whichissue }} {{ whichasset }}
