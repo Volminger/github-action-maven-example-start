@@ -2,11 +2,14 @@ name: Maven Continous Integration and Delivery
 
 on:
  push:
-    branches: [ TP-6-Change-million-years ]
- pull_request:
-    branches: [ master ]
+    branches: [ TP* ]
+# pull_request:
+#    branches: [ master ]
  workflow_dispatch:
  
+env:
+  JIRA_ISSUE: 8
+  
 jobs:
   build_and_test:
     
@@ -16,6 +19,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
     - name: Set up JDK 14
       uses: actions/setup-java@v1
       with:
@@ -31,22 +36,25 @@ jobs:
     - name: Build project with Maven
       run: mvn -B package --file pom.xml
 
-  compliance_checks:
-      needs: [build_and_test]
-      name: Compliance checks
-      uses: ./.github/workflows/compliant-scan.yml
-      with:
-         config-path: .github/labeler.yml
-      secrets:
-            inherit
+#
+#  compliance_checks:
+#      needs: [build_and_test]
+#      name: Compliance checks
+#      uses: ./.github/workflows/compliant-scan.yml
+#      with:
+#         config-path: .github/labeler.yml
+#      secrets:
+#            inherit
         
   package-job:
   
       runs-on: ubuntu-latest
       name: Package job
-      needs: [compliance_checks]
+ #     needs: [compliance_checks]
+      needs: [build_and_test]
       outputs:
         myoutput: ${{ steps.create_file.outputs.thisfilename }}
+        mybranch: ${{ steps.create_file.outputs.thisbranch }}
       steps:
         - uses: actions/checkout@v2
         - name: set up jdk
@@ -60,15 +68,15 @@ jobs:
         - name: create file
           id: create_file
           run: |
-              mkdir staging && cp target/*jar-with-dependencies.jar staging
+              mkdir staging && cp target/*jar-with-dependencies.jar staging              
               echo "thisfilename=$( ls staging )" >> $GITHUB_OUTPUT
-                    
+              echo "thisbranch=$(echo ${GITHUB_REF##*/})" >> $GITHUB_OUTPUT
         - name: upload file      
           uses: actions/upload-artifact@v3
           with:
             name: ${{ steps.create_file.outputs.thisfilename }}
             path: staging
-        
+               
   create-release:
     name: Create release
     runs-on: ubuntu-latest
@@ -77,9 +85,10 @@ jobs:
     needs: [package-job]
     outputs:
         myoutput: ${{ needs.package-job.outputs.myoutput }}
+        mybranch: ${{ env.JIRA_ISSUE }}
     steps:
-      - name: print file in create release
-        run: echo "HERE IT IS:" ${{ needs.package-job.outputs.myoutput }}
+      - name: Set JIRA ISSUE
+        run: echo JIRA_ISSUE=${{ needs.package-job.outputs.mybranch }}| cut -d "-" -f -2  >> $GITHUB_ENV
       - name: Download artefact
         uses: actions/download-artifact@v3
         with:
@@ -100,11 +109,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: ${{ steps.create_release.outputs.upload_url }}        
           asset_path: ./${{ needs.package-job.outputs.myoutput }}
           asset_name: ${{ needs.package-job.outputs.myoutput }}
           asset_content_type: application/gzip
-           
+               
   deploy_to_env:
       needs: [create-release]
       name: Deploy to SIT
@@ -112,5 +121,6 @@ jobs:
       with:
          which-env: SIT
          which-asset: ${{ needs.create-release.outputs.myoutput }}
+         which-issue: ${{ needs.create-release.outputs.mybranch }}
       secrets:
             inherit
