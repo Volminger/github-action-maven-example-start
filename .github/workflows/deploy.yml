@@ -7,6 +7,10 @@ on:
       which-asset:
         required: true
         type: string
+      which-issue:
+        required: true
+        type: string
+        
 jobs:
  prepare_workspace:
     runs-on: self-hosted
@@ -50,6 +54,6 @@ jobs:
        steps:
        - name: Run a one-line script
          run: |
-             echo Hello, world!
-             ansible-playbook -u ansibleuser --extra-vars "whichenv=${{ inputs.which-env }} whichasset=${{ inputs.which-asset }}" -i ansible/inventory ansible/hello-world.yaml 
-
+             echo Hello, world ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+             echo ${{ inputs.which-issue}}
+             ansible-playbook -u ansibleuser --extra-vars "whichenv=${{ inputs.which-env }} whichasset=${{ inputs.which-asset }} whichissue=${{ inputs.which-issue }} " -i ansible/inventory ansible/hello-world.yaml 
