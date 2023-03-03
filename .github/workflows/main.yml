@@ -3,8 +3,6 @@ name: Maven Continous Integration and Delivery
 on: 
   push: 
     branches: [TP*]
-  pull_request:
-    branches: [master]
   workflow_dispatch:
  
 env:
