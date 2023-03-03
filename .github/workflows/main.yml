@@ -1,8 +1,11 @@
 name: Maven Continous Integration and Delivery
 
-on: 
-  [push, workflow_dispatch]
- 
+on:
+  push:
+    branches-ignore:
+      - master
+  workflow_dispatch:
+  
 env:
   JIRA_ISSUE: 8
   
