@@ -53,6 +53,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Test Results
-          path: ${{ env.TEST_REPORT_DIR }}
+          path: ${{ env.TEST_REPORT_DIR }}/*
           if-no-files-found: warn
 
