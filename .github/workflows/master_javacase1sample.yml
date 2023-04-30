@@ -18,19 +18,25 @@ jobs:
 
       - name: Build project with Maven
         run: mvn clean install --file pom.xml
-        
-      - name: Display target directory
-        run: ls target
-        
-      - name: List workspace contents
-        run: ls -R ${{ github.workspace }}
 
       - name: Test project with Maven
         run: mvn test --file pom.xml
         env:
           TEST_REPORT_DIR: ${{ github.workspace }}/target/surefire-reports
-          
-      
+
+        
+  deploy-job:
+    runs-on: ubuntu-latest
+    needs: [publish-job]
+    steps:
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'javacase1sample'  # Replace with your Azure App Service name
+          slot-name: 'production'    # Replace with your deployment slot name if applicable
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A4C0F299CEF64D799D295CBA65EDA9E7 }}  # Store your publish profile in GitHub Secrets
+          package: staging/my-web-app.war   # Path to the WAR file in the staging directory
+
 
   publish-job:
     runs-on: ubuntu-latest
@@ -44,38 +50,23 @@ jobs:
       - name: Create staging directory
         run: mkdir -p staging
       - name: Copy artifacts to staging directory
-        run: cp target/my-web-app.war staging/
+        run: cp target/*-jar-with-dependencies.jar staging/
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: Package
-          path: staging
-          retention-days: 7
-          working-directory: staging
-
-  deploy-job:
-    runs-on: ubuntu-latest
-    needs: [publish-job]
-    steps:
-      - name: Deploy to Azure App Service
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'javacase1sample'  # Replace with your Azure App Service name
-          slot-name: 'production'    # Replace with your deployment slot name if applicable
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A4C0F299CEF64D799D295CBA65EDA9E7 }}  # Store your publish profile in GitHub Secrets
-          package: staging/my-web-app.war   # Path to the WAR file in the staging directory
-
-  publish-test-results:
-    runs-on: ubuntu-latest
-    needs: [build_and_test]
-    steps:
+         name: Package
+         path: staging
+         retention-days: 7
+         working-directory: staging
+         
       - name: Publish test results
         run: 
           mkdir -p test-results
-          find ${{ env.TEST_REPORT_DIR }}
+          find ${{ env.TEST_REPORT_DIR }} 
       - name: Upload test results
         uses: actions/upload-artifact@v2
         with:
           name: Test Results
           path: test-results
           if-no-files-found: warn
+		  
