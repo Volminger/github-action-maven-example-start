@@ -21,6 +21,9 @@ jobs:
 
       - name: Test project with Maven
         run: mvn test --file pom.xml
+        
+      - name: Create Staging Directory
+        run: mkdir staging
 
       - name: Copy artifact to staging directory
         run: cp target/*-jar-with-dependencies.jar staging/
