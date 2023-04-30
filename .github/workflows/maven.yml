@@ -49,9 +49,9 @@ jobs:
          working-directory: staging
          
       - name: Publish test results
-        run: |
+        run: 
           mkdir -p test-results
-          find ${{ env.TEST_REPORT_DIR }} -name '*.xml' ! -name 'pom.xml' -exec cp --parents {} test-results/ \;
+          find ${{ env.TEST_REPORT_DIR }} 
       - name: Upload test results
         uses: actions/upload-artifact@v2
         with:
