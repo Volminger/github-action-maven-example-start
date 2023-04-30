@@ -47,13 +47,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
-  <dependencies>
+ <dependencies>
   <!-- JUnit Jupiter API -->
   <dependency>
     <groupId>org.junit.jupiter</groupId>
     <artifactId>junit-jupiter-api</artifactId>
     <version>5.7.1</version>
-    <scope>test</scope>
+    <scope>compile</scope>
   </dependency>
 
   <!-- JUnit Jupiter Engine -->
@@ -61,10 +61,9 @@
     <groupId>org.junit.jupiter</groupId>
     <artifactId>junit-jupiter-engine</artifactId>
     <version>5.7.1</version>
-    <scope>test</scope>
+    <scope>compile</scope>
   </dependency>
 </dependencies>
-
 
 
 
