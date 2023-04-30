@@ -49,7 +49,10 @@ jobs:
          working-directory: staging
          
       - name: Publish test results
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: Test Results
           path: ${{ env.TEST_REPORT_DIR }}
+          if-no-files-found: warn
+
