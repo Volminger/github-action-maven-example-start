@@ -24,9 +24,6 @@ jobs:
         env:
           TEST_REPORT_DIR: ${{ github.workspace }}/target/surefire-reports
 
-        
-  
-
   publish-job:
     runs-on: ubuntu-latest
     needs: [build_and_test]
@@ -43,15 +40,31 @@ jobs:
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
-         name: Package
-         path: staging
-         retention-days: 7
-         working-directory: staging
-         
+          name: Package
+          path: staging
+          retention-days: 7
+          working-directory: staging
+
+  deploy-job:
+    runs-on: ubuntu-latest
+    needs: [publish-job]
+    steps:
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: your-app-name  # Replace with your Azure App Service name
+          slot-name: production    # Replace with your deployment slot name if applicable
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A4C0F299CEF64D799D295CBA65EDA9E7 }}  # Store your publish profile in GitHub Secrets
+          package: staging/*.jar  # Path to the JAR file in the staging directory
+
+  publish-test-results:
+    runs-on: ubuntu-latest
+    needs: [build_and_test]
+    steps:
       - name: Publish test results
         run: 
           mkdir -p test-results
-          find ${{ env.TEST_REPORT_DIR }} 
+          find ${{ env.TEST_REPORT_DIR }}
       - name: Upload test results
         uses: actions/upload-artifact@v2
         with:
