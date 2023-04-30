@@ -55,7 +55,7 @@ jobs:
           app-name: 'javacase1sample'  # Replace with your Azure App Service name
           slot-name: 'production'    # Replace with your deployment slot name if applicable
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A4C0F299CEF64D799D295CBA65EDA9E7 }}  # Store your publish profile in GitHub Secrets
-          package: staging/*-jar-with-dependencies.jar   # Path to the JAR file in the staging directory
+          package: .staging/jar-with-dependencies.jar   # Path to the JAR file in the staging directory
 
   publish-test-results:
     runs-on: ubuntu-latest
