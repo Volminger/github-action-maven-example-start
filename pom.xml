@@ -16,56 +16,36 @@
     </properties>
 
     <build>
-        <plugins>
+       <plugins>
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>3.0.0-M5</version>
+    <configuration>
+      <includes>
+        <include>**/Test*.java</include>
+        <include>**/*Test.java</include>
+        <include>**/*Tests.java</include>
+      </includes>
+    </configuration>
+  </plugin>
+</plugins>
 
-           <plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-assembly-plugin</artifactId>
-  <version>3.3.0</version>
-  <configuration>
-    <archive>
-      <manifest>
-        <mainClass>App</mainClass>
-      </manifest>
-    </archive>
-    <descriptorRefs>
-      <descriptorRef>jar-with-dependencies</descriptorRef>
-    </descriptorRefs>
-  </configuration>
-  <executions>
-    <execution>
-      <id>make-assembly</id>
-      <phase>package</phase>
-      <goals>
-        <goal>single</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
- <dependencies>
-  <!-- JUnit Jupiter API -->
-  <dependency>
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter-api</artifactId>
-    <version>5.7.1</version>
-    <scope>compile</scope>
-  </dependency>
-
-  <!-- JUnit Jupiter Engine -->
-  <dependency>
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter-engine</artifactId>
-    <version>5.7.1</version>
-    <scope>compile</scope>
-  </dependency>
-</dependencies>
-
-
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter-api</artifactId>
+  <version>5.8.0</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter-engine</artifactId>
+  <version>5.8.0</version>
+  <scope>test</scope>
+</dependency>
 
             </plugin>
         </plugins>
