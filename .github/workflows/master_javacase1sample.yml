@@ -18,11 +18,19 @@ jobs:
 
       - name: Build project with Maven
         run: mvn clean install --file pom.xml
+        
+      - name: Display target directory
+        run: ls target
+        
+      - name: List workspace contents
+        run: ls -R ${{ github.workspace }}
 
       - name: Test project with Maven
         run: mvn test --file pom.xml
         env:
           TEST_REPORT_DIR: ${{ github.workspace }}/target/surefire-reports
+          
+      
 
   publish-job:
     runs-on: ubuntu-latest
