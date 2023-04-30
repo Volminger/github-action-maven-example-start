@@ -34,7 +34,8 @@ jobs:
           java-version: 14
       - run: mvn clean install --file pom.xml -DskipTests
       - run: mkdir staging && cp target/*-jar-with-dependencies.jar staging
-      - uses: actions/upload-artifact@v2
+      - name: Archive artifact
+        uses: actions/upload-artifact@v2
         with:
           name: Package
           path: staging
