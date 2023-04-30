@@ -51,7 +51,7 @@ jobs:
       - name: Publish test results
         run: |
           mkdir -p test-results
-          cp -R ${{ env.TEST_REPORT_DIR }}/* test-results/
+          find ${{ env.TEST_REPORT_DIR }} -name '*.xml' -exec cp --parents {} test-results/ \;
       - name: Upload test results
         uses: actions/upload-artifact@v2
         with:
