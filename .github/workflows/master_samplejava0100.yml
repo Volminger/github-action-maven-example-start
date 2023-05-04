@@ -25,18 +25,31 @@ jobs:
       - name: Run Tests with Code Coverage
         run: mvn test jacoco:report
 
-      - name: Test project with Maven
-        run: mvn test --file pom.xml
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+      - name: Generate JaCoCo badge
+        id: jacoco
+        uses: cicirello/jacoco-badge-generator@v2
         with:
-          name: java
-          path: target
-          
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        badges-directory: badges
+        generate-branches-badge: true
+        generate-summary: true
+
+      - name: Log coverage percentages to workflow output
+        run: |
+         echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
+         echo "branches = ${{ steps.jacoco.outputs.branches }}"
+      - name: Upload JaCoCo coverage report as a workflow artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: java
+         name: jacoco-report
+         path: target/site/jacoco/
+
+
+
+
+      - name: Get the Coverage info
+        run: |
+         echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
+         echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
           
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
