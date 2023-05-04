@@ -19,11 +19,8 @@ jobs:
       - name: Build project with Maven
         run: mvn clean install --file pom.xml
         
-      - name: Display target directory
-        run: ls target
-        
-      - name: List workspace contents
-        run: ls -R ${{ github.workspace }}
+      - name: Dependency Test
+        run: mvn dependency:analyze
 
       - name: Test project with Maven
         run: mvn test --file pom.xml
