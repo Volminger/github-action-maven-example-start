@@ -66,13 +66,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build_and_test]
     steps:
-      - name: Publish test results
-        run: 
-          mkdir -p test-results
-          find ${{ env.TEST_REPORT_DIR }}
-      - name: Upload test results
+      - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: Test Results
-          path: test-results
-          if-no-files-found: warn
+          name: java
+          path: target
+          
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: java
+
