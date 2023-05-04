@@ -21,6 +21,9 @@ jobs:
         
       - name: Dependency Test
         run: mvn dependency:analyze
+        
+      - name: Run Tests with Code Coverage
+        run: mvn test jacoco:report
 
       - name: Test project with Maven
         run: mvn test --file pom.xml
