@@ -64,13 +64,7 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<configuration>
-							<!-- Sets the path to the file which contains the execution data. -->
 
-							<dataFile>target/jacoco.exec</dataFile>
-							
-							<outputDirectory>target/reports</outputDirectory>
-						</configuration>
 					</execution>
 				</executions>
 				<configuration>
