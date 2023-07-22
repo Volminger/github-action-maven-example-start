@@ -51,7 +51,7 @@ jobs:
       
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         
-          docker images 
+          # docker images 
           docker push ***.dkr.ecr.ap-south-1.amazonaws.com/testing-purpose:demo-image
           #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
