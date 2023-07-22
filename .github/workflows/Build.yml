@@ -49,10 +49,5 @@ jobs:
           IMAGE_TAG: demo-image
         run: >
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker images 
-          #docker push ***.dkr.ecr.ap-south-1.amazonaws.com/testing-purpose:demo-image
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          #docker build -t testing-purpose .
-          #docker tag testing-purpose:latest 095288515089.dkr.ecr.ap-south-1.amazonaws.com/testing-purpose:latest
-          #docker push 095288515089.dkr.ecr.ap-south-1.amazonaws.com/testing-purpose:latest
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
