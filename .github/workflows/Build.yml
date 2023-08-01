@@ -7,7 +7,7 @@ on:
     branches:
       - master
 jobs:
-  build_and_test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,27 +17,19 @@ jobs:
           java-version: 11
       - name: Build project with Maven
         run: mvn -B package --file pom.xml
-  publish-job:
-    runs-on: ubuntu-latest
-    needs:
-      - build_and_test
+permissions:
+        id-token: write
+        contents: read
+env:
+   AWS_REGION: ap-south-1
+   IMAGE_TAG: latest 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - run: mvn -B package --file pom.xml -DskipTests
-      - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Package
-          path: staging
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+           role-to-assume:
+           aws-region: 
+   
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
