@@ -1,13 +1,12 @@
 name: Qodana
 on:
-
   push:
     branches:
-      - main
+      - master
      
 
 jobs:
-  qodana:
+ qodana:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -22,3 +21,4 @@ jobs:
         uses: JetBrains/qodana-action@v2023.2
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }} # read the steps about 
+
