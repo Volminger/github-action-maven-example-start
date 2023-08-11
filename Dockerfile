@@ -1,5 +1,10 @@
-FROM adoptopenjdk/openjdk11:alpine-jre
+FROM maven AS BUILD_STAGE
 WORKDIR /app
-COPY target/*jar-with-dependencies.jar .
+COPY . /app
+RUN mvn clean install
+
+FROM openjdk:11
+VOLUME /tmp
+COPY --from BUILD_STAGE app/target/*jar-with-dependencies.jar app.jar
 EXPOSE 8080
-CMD ["java", "-jar", "target/*jar-with-dependencies.jar"]
+CMD ["java", "_dspring.profiles.active=local", "-jar", "app.jar"]
