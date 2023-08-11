@@ -7,4 +7,4 @@ FROM openjdk:11
 VOLUME /tmp
 COPY --from BUILD_STAGE app/target/*jar-with-dependencies.jar app.jar
 EXPOSE 8080
-CMD ["java", "_dspring.profiles.active=local", "-jar", "app.jar"]
+CMD ["java", "-jar", "target/*jar-with-dependencies.jar" "app.jar"]
