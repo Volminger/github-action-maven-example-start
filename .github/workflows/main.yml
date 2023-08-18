@@ -1,4 +1,4 @@
-name: Maven CI/CD
+name: Maven CI/CD grana
 
 on:
  workflow_dispatch:
