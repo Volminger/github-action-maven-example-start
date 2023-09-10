@@ -21,11 +21,11 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-    - name: Test
+    - name: Install Talisman
       run: |
-        git config user.email "hamrithadaya@gmail.com"
-        git config user.name "Hamritha"
-        go test -covermode=count -coverprofile=coverage.out -v ./src/main/java
+        curl -LsSf https://git.io/talisman-installer | bash
+        sudo mv ~/.talisman/bin/talisman /usr/local/bin/
+        talisman --scan
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
