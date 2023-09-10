@@ -25,7 +25,7 @@ jobs:
       run: |
         git config user.email "hamrithadaya@gmail.com"
         git config user.name "Hamritha"
-        go test -covermode=count -coverprofile=coverage.out -v ./main/java
+        go test -covermode=count -coverprofile=coverage.out -v ./src/main/java
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
