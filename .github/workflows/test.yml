@@ -26,6 +26,8 @@ jobs:
         curl https://thoughtworks.github.io/talisman/install.sh > ~/install-talisman.sh
         chmod +x ~/install-talisman.sh
         ~/install-talisman.sh    
+    - name: Run Talisman Checks
+      run: talisman --scan
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
