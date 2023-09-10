@@ -25,9 +25,9 @@ jobs:
       run: |
         curl https://thoughtworks.github.io/talisman/install.sh > ~/install-talisman.sh
         chmod +x ~/install-talisman.sh
-        ~/install-talisman.sh    
+        ~/install-talisman.sh pre-commit
     - name: Run Talisman Checks
-      run: .git/hooks/pre-push --scan > talisman-scan-report.txt
+      run: ./ --scan > talisman-scan-report.txt
 
     - name: Upload Report
       uses: actions/upload-artifact@v2
