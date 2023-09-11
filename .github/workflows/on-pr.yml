@@ -16,3 +16,5 @@ jobs:
     if: github.event.pull_request.merged == true && github.head_ref != 'test'
     name: deploy_and_test_dev
     uses: ./.github/workflows/test.yml
+    with: 
+      username: Hamritha
