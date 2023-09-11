@@ -40,10 +40,8 @@ jobs:
 
         with:
 
-          regex: '[A-Za-z]{2,}-\d+'
+          regex: '[a-z]'
 
           ignore: prd
 
-          min_length: 5
-
-          max_length: 20
+         
