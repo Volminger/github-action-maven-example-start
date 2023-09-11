@@ -11,3 +11,8 @@ on:
 permissions:
   id-token: write
   contents: read
+jobs:
+  deploy_and_test_in_dev:
+    if: github.event.pull_request.merged == true && github.head_ref != 'test'
+    name: deploy_and_test_dev
+    uses: ./.github/workflows/test.yml
