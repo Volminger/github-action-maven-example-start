@@ -30,7 +30,7 @@ jobs:
  
 
     - name: Run Talisman Checks
-      run: talisman --scan > talisman-scan-report.txt
+      run: talisman --scan 
 
     - name: Upload Report
       uses: actions/upload-artifact@v2
