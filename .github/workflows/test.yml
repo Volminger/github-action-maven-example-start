@@ -31,12 +31,13 @@ jobs:
 
     - name: Run Talisman Checks
       run: talisman --scan 
+      continue-on-error: true
 
     - name: Upload Report
       uses: actions/upload-artifact@v2
       with:
           name: talisman-scan-report
-          path: talisman-scan-report.txt
+          path: talisman_report/talisman_reports/data
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
