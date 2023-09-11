@@ -11,7 +11,7 @@ name: Java CI with Maven test
 on:
   workflow_call:
    inputs:
-      stage:
+      username:
         required: true
         type: string
 jobs:
