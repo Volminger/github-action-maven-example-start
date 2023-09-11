@@ -26,7 +26,7 @@ jobs:
         curl https://thoughtworks.github.io/talisman/install.sh > ~/install-talisman.sh
         chmod +x ~/install-talisman.sh
         ~/install-talisman.sh 
-        echo "PATH: $PATH"
+        sudo mv /usr/local/bin
     - name: Run Talisman Checks
       run: talisman --scan > talisman-scan-report.txt
 
