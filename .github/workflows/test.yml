@@ -10,6 +10,10 @@ name: Java CI with Maven test
 
 on:
   workflow_call:
+   inputs:
+      stage:
+        required: true
+        type: string
 jobs:
   build:
 
