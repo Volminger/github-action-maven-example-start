@@ -9,22 +9,7 @@
 name: Java CI with Maven test
 
 on:
-  push:
-    branches: 
-      - '*'
-      - '*/*'
-      - '**'
-      - '!prd'
-      - '!test'
-      
-  pull_request:
-    branches: 
-      - '*'
-      - '*/*'
-      - '**'
-      - '!prd'
-      - '!test'
-
+  workflow_dispatch:
 jobs:
   build:
 
