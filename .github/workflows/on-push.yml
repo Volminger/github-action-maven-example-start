@@ -40,7 +40,7 @@ jobs:
 
         with:
 
-          regex: '[A-Za-z]{2,}-\d+'
+          regex: '[a-z]'
 
           ignore: prd
 
