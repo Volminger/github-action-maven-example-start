@@ -95,7 +95,7 @@ jobs:
     - name: Generate JSON SBOM
       uses: CycloneDX/gh-dotnet-generate-sbom@master
       with:
-        path: /*/bom.json
+        path: ./CycloneDX.sln
         json: true
         #github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
    
@@ -103,7 +103,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
             name: SBOM.json
-            path: ./CycloneDX.sln
+            path: /*/bom.json
  
  Docker_push:
     needs: Build_and_test
