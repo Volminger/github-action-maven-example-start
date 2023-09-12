@@ -1,11 +1,11 @@
 on:
-  pull_request:
+ pull_request:
     types:
       - closed
     branches:
       - '*'
-
-      
+      - '!test'
+      - '!prd'  
 
 permissions:
   id-token: write
@@ -78,6 +78,7 @@ jobs:
         coordinates: groupId=com.example artifactId=app version=1.0.0
         assets: extension=jar
         filename: target/*jar-with-dependencies.jar
+
 
  Docker_push:
     needs: Build_and_test
