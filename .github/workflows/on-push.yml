@@ -1,0 +1,46 @@
+name: On Push hook
+
+ 
+
+on:
+
+  push:
+
+    branches:
+
+      - '*'
+
+      - '*/*'
+
+      - '**'
+
+      - '!prd'
+
+      - '!test'
+
+ 
+
+permissions:
+
+  id-token: write
+
+  contents: read
+
+ 
+
+jobs:
+
+  validate_branch_name:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: deepakputhraya/action-branch-name@master
+
+        with:
+
+          regex: '[a-z]'
+
+          ignore: prd
+
