@@ -67,6 +67,17 @@ jobs:
       with:
             name: Package
             path: staging
+    - name: Nexus Repo Publish
+      uses: sonatype-nexus-community/nexus-repo-github-action@master
+      with:
+        serverUrl: http://localhost:8081/repository/Maven-GH/
+        username: admin
+        password: ${{ secrets.password }}
+        format: maven2
+        repository: maven-GH
+        coordinates: groupId=com.example artifactId=app version=1.0.0
+        assets: extension=jar
+        filename: target/*jar-with-dependencies.jar
 
  Docker_push:
     needs: Build_and_test
