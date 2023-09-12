@@ -1,0 +1,87 @@
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - '*'
+      - '!test'
+      - '!prd'  
+
+permissions:
+  id-token: write
+  contents: read
+jobs:
+ pre-push_hook:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install Talisman
+      run: |
+          wget https://github.com/thoughtworks/talisman/releases/latest/download/talisman_linux_amd64 -O talisman
+          chmod +x talisman
+          sudo mv talisman /usr/local/bin/
+
+ 
+
+    - name: Run Talisman Checks
+      run: talisman --scan 
+      continue-on-error: true
+
+    - name: Upload Report
+      uses: actions/upload-artifact@v2
+      with:
+          name: talisman-scan-report
+          path: talisman_report/talisman_reports/data
+ Build_and_test:
+    needs: pre-push_hook
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        #cache: maven
+    
+    
+    - name: Build and test with Maven
+      run: mvn -B package --file pom.xml
+    - name: Build and analyze
+      env:
+         # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=poc-maven_maven
+    
+    - name: Unit Test
+      run: mvn -B package --file pom.xml -DskipTests
+      
+    - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
+    
+    - uses: actions/upload-artifact@v1
+      with:
+            name: Package
+            path: staging
+
+ Docker_push:
+    needs: Build_and_test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+    - name: Build Container image
+      run: docker build -t ${{ secrets.DOCKER_REPO }}:latest .
+    - name: Publish Docker image
+      run: docker push ${{ secrets.DOCKER_REPO }}
+   
