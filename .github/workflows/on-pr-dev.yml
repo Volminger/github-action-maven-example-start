@@ -4,8 +4,8 @@ on:
       - closed
     branches:
       - '*'
-
-      
+      - '!test'
+      - '!prd'  
 
 permissions:
   id-token: write
