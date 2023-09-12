@@ -84,8 +84,21 @@ jobs:
         #coordinates: groupId=com.example artifactId=app version=1.0.0
         #assets: extension=jar
         #filename: target/*jar-with-dependencies.jar
-
-
+    - name: Install OWASP Dependency-Check
+      run: |
+          # Download Dependency-Check
+          wget https://github.com/jeremylong/DependencyCheck/releases/download/v7.0.0/dependency-check-7.0.0-release.zip -O dependency-check.zip
+          unzip dependency-check.zip
+          chmod +x dependency-check/bin/dependency-check.sh 
+    - name: Generate SBOM
+      run: |
+         # Generate the SBOM using Dependency-Check
+         dependency-check/bin/dependency-check.sh --project "Maven-GH" --scan target/*jar-with-dependencies.jar --out /github/workspace/sbom
+    - name: Upload SBOM
+      uses: actions/upload-artifact@v2
+      with:
+         name: sbom
+         path: /github/workspace/sbom
  Docker_push:
     needs: Build_and_test
     runs-on: ubuntu-latest
@@ -103,24 +116,4 @@ jobs:
     - name: Publish Docker image
       run: docker push ${{ secrets.DOCKER_REPO }}
 
-    - name: Install OWASP Dependency-Check
-      run: |
-          # Download Dependency-Check
-          wget https://github.com/jeremylong/DependencyCheck/releases/download/v7.0.0/dependency-check-7.0.0-release.zip -O dependency-check.zip
-          unzip dependency-check.zip
-          chmod +x dependency-check/bin/dependency-check.sh
-
- 
-
-    - name: Generate SBOM
-      run: |
-         # Generate the SBOM using Dependency-Check
-         dependency-check/bin/dependency-check.sh --project "Maven-GH" --scan target/*jar-with-dependencies.jar --out /github/workspace/sbom
-
- 
-
-    - name: Upload SBOM
-      uses: actions/upload-artifact@v2
-      with:
-         name: sbom
-         path: /github/workspace/sbom
+     
