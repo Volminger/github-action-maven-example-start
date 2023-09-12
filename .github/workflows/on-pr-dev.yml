@@ -1,5 +1,6 @@
 on:
  workflow_dispatch:
+ push: dev
  pull_request:
     types:
       - closed
