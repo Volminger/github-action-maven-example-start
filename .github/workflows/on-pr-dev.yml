@@ -103,7 +103,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
             name: SBOM.json
-            path: /*/bom.json
+            path: */bom.json
  
  Docker_push:
     needs: Build_and_test
