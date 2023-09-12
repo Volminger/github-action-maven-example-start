@@ -77,7 +77,8 @@ jobs:
         repository: maven-GH
         coordinates: groupId=com.example artifactId=app version=1.0.0
         assets: extension=jar
-        filename: target/*jar-with-dependencies.jar       
+        filename: target/*jar-with-dependencies.jar
+
 
  Docker_push:
     needs: Build_and_test
