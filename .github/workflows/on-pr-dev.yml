@@ -85,16 +85,18 @@ jobs:
         #assets: extension=jar
         #filename: target/*jar-with-dependencies.jar
     
-    - name: Generate SBOM
-      run: |
-         # Generate the SBOM using Dependency-Check
-         dependency-check/bin/dependency-check.sh --project "Maven-GH" --scan target/*jar-with-dependencies.jar --out /github/workspace/sbom
-      continue-on-error: true
-    - name: Upload SBOM
-      uses: actions/upload-artifact@v2
+    - name: Generate XML SBOM
+      uses: CycloneDX/gh-dotnet-generate-sbom@v1
       with:
-         name: sbom
-         path: /github/workspace/sbom
+         path: ./CycloneDX.sln
+        # github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Generate JSON SBOM
+      uses: CycloneDX/gh-dotnet-generate-sbom@master
+      with:
+        path: ./CycloneDX.sln
+        json: true
+        #github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
  Docker_push:
     needs: Build_and_test
     runs-on: ubuntu-latest
