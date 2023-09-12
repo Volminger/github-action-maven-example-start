@@ -94,6 +94,7 @@ jobs:
       run: |
          # Generate the SBOM using Dependency-Check
          dependency-check/bin/dependency-check.sh --project "Maven-GH" --scan target/*jar-with-dependencies.jar --out /github/workspace/sbom
+      continue-on-error: true
     - name: Upload SBOM
       uses: actions/upload-artifact@v2
       with:
