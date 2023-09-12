@@ -89,6 +89,7 @@ jobs:
       uses: CycloneDX/gh-dotnet-generate-sbom@v1
       with:
          path: ./CycloneDX.sln
+      
         # github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Generate JSON SBOM
@@ -97,6 +98,13 @@ jobs:
         path: ./CycloneDX.sln
         json: true
         #github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
+   
+    - name: Upload SBOM report to artifact
+      uses: actions/upload-artifact@v1
+      with:
+            name: SBOM.json
+            path: ./CycloneDX.sln
+ 
  Docker_push:
     needs: Build_and_test
     runs-on: ubuntu-latest
