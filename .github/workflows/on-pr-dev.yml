@@ -5,15 +5,7 @@ on:
     branches:
       - '*'
 
-      - '*/*'
-
-      - '**'
-
-      - '!prd'
-
-      - '!test'
-
- 
+      
 
 permissions:
   id-token: write
