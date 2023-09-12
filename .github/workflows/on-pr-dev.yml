@@ -84,12 +84,7 @@ jobs:
         #coordinates: groupId=com.example artifactId=app version=1.0.0
         #assets: extension=jar
         #filename: target/*jar-with-dependencies.jar
-    - name: Install OWASP Dependency-Check
-      run: |
-          # Download Dependency-Check
-          wget https://github.com/jeremylong/DependencyCheck/releases/download/v7.0.0/dependency-check-7.0.0-release.zip -O dependency-check.zip
-          unzip dependency-check.zip
-          chmod +x dependency-check/bin/dependency-check.sh 
+    
     - name: Generate SBOM
       run: |
          # Generate the SBOM using Dependency-Check
