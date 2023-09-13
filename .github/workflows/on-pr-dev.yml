@@ -92,25 +92,16 @@ jobs:
         #assets: extension=jar
         #filename: target/*jar-with-dependencies.jar
     
-    - name: Generate XML SBOM
-      uses: CycloneDX/gh-dotnet-generate-sbom@v1
-      with:
-         path: ./CycloneDX.sln
-      
-        # github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Generate JSON SBOM
-      uses: CycloneDX/gh-dotnet-generate-sbom@master
-      with:
-        path: ./CycloneDX.sln
-        json: true
-        #github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
    
+    - name: Generate SBOM
+      run: mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom 
+        
+     
     - name: Upload SBOM report to artifact
       uses: actions/upload-artifact@v1
       with:
-            name: SBOM.json
-            path: /home/runner/work/github-action-maven-example-start/github-action-maven-example-start/bom.json
+            name: sbom
+            path: target/bom.xml
  
  Docker_push:
     needs: Build_and_test
