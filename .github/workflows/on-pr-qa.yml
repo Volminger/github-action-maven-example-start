@@ -3,7 +3,7 @@ on:
     types:
       - closed
     branches:
-      - test
+      - qa
       
 
 permissions:
