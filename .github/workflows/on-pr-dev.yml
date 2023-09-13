@@ -33,7 +33,7 @@ jobs:
       continue-on-error: true
 
     - name: Upload Report
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
           name: talisman-scan-report
           path: talisman_report/talisman_reports/data
@@ -51,13 +51,7 @@ jobs:
         distribution: 'temurin'
         #cache: maven
     
-    - name: Cache the Maven packages to speed up build
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-    
+        
     - name: Build Maven
       run: mvn -B package --file pom.xml
       
@@ -76,7 +70,7 @@ jobs:
       
     - name: Upload to Artifact  
       run: mkdir staging && cp target/*jar-with-dependencies.jar staging
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
             name: Package
             path: staging
@@ -98,7 +92,7 @@ jobs:
         
      
     - name: Upload SBOM report to artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
             name: sbom
             path: target/bom.xml
