@@ -7,9 +7,8 @@ permissions:
   contents: read
 jobs:
  pre-push_hook:
-
-    runs-on: ubuntu-latest
     if: github.head_ref == 'dev'
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v3
