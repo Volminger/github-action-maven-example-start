@@ -8,7 +8,7 @@ on:
       - closed
     branches:
       - '*'
-      - '!test'
+      - '!qa'
       - '!prd'  
 
 permissions:
@@ -94,9 +94,10 @@ jobs:
     - name: Upload SBOM report to artifact
       uses: actions/upload-artifact@v3
       with:
-            name: sbom
-            path: target/bom.xml
+          name: sbom
+          path: target/bom.xml
  
+
  Docker_push:
     needs: Build_and_test
     runs-on: ubuntu-latest

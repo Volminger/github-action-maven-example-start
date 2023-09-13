@@ -14,8 +14,7 @@ jobs:
  pre-push_hook:
 
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && github.head_ref == 'test'
- 
+    if: github.event.pull_request.merged == true && github.head_ref == 'qa'
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -25,14 +24,12 @@ jobs:
           chmod +x talisman
           sudo mv talisman /usr/local/bin/
 
- 
-
     - name: Run Talisman Checks
       run: talisman --scan 
       continue-on-error: true
 
     - name: Upload Report
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
           name: talisman-scan-report
           path: talisman_report/talisman_reports/data
@@ -50,25 +47,52 @@ jobs:
         distribution: 'temurin'
         #cache: maven
     
-    
-    - name: Build and test with Maven
+        
+    - name: Build Maven
       run: mvn -B package --file pom.xml
-    - name: Build and analyze
+      
+    - name: Sonarcloud-code coverage
       env:
          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=poc-maven_maven
-    
+
     - name: Unit Test
-      run: mvn -B package --file pom.xml -DskipTests
+      run: mvn --batch-mode -Dmaven.test.failure.ignore=false test
       
-    - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
+    - name: Build Test Maven
+      run: mvn -B package --file pom.xml -DskipTests
     
-    - uses: actions/upload-artifact@v1
+      
+    - name: Upload to Artifact  
+      run: mkdir staging && cp target/*jar-with-dependencies.jar staging
+    - uses: actions/upload-artifact@v3
       with:
             name: Package
             path: staging
-
+    #- name: Nexus Repo Publish
+     # uses: sonatype-nexus-community/nexus-repo-github-action@master
+      #with:
+       # serverUrl: https://annually-quality-seagull.ngrok-free.app
+        #username: admin
+        #password: ${{ secrets.password }}
+        #format: maven2
+        #repository: maven-GH
+        #coordinates: groupId=com.example artifactId=app version=1.0.0
+        #assets: extension=jar
+        #filename: target/*jar-with-dependencies.jar
+    
+   
+    - name: Generate SBOM
+      run: mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom 
+        
+     
+    - name: Upload SBOM report to artifact
+      uses: actions/upload-artifact@v3
+      with:
+            name: sbom
+            path: target/bom.xml
+ 
  Docker_push:
     needs: Build_and_test
     runs-on: ubuntu-latest
@@ -85,4 +109,3 @@ jobs:
       run: docker build -t ${{ secrets.DOCKER_REPO }}:latest .
     - name: Publish Docker image
       run: docker push ${{ secrets.DOCKER_REPO }}
-   
