@@ -1,7 +1,9 @@
 on:
   pull_request:
-    branches:
-      - qa
+     branches: [ dev ]
+
+  pull_request_target:    
+     branches: [ qa ]
       
 
 permissions:
