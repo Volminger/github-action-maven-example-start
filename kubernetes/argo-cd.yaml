@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  # Set labels, annotations, and other metadata as needed
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  source:
+    repoURL: https://github.com/Hamritha02/github-action-maven-example-start
+    path: kubernetes
+    targetRevision: dev
+    # Specify the directory within your Git repo where Kubernetes manifests are stored.
+    # For example, if your Docker deployment YAML is in a folder called "k8s" within your Git repo:
+    # path: k8s
+  project: default
+  syncPolicy:
+    automated:
+      prune: true  # Optional: Remove resources not declared in Git repo
+      selfHeal: true  # Optional: Automatically recover from cluster changes
