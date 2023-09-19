@@ -1,16 +1,8 @@
 on: 
- workflow_dispatch:
- push: 
+  push: 
    branches:
       - dev
- pull_request:
-    types:
-      - closed
-    branches:
-      - '*'
-      - '!qa'
-      - '!prd'  
-
+ 
 permissions:
   id-token: write
   contents: read
