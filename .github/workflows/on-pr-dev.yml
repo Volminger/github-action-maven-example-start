@@ -57,7 +57,7 @@ jobs:
         sonar_project_key='poc-maven_maven'
         sonar_quality_gate_status=$(curl -s -u "${{ secrets.SONAR_TOKEN }}:" \
         "https://sonarcloud.io/api/qualitygates/project_status?projectKey=${sonar_project_key}")
-          pass_percentage_threshold=90  # Define your desired threshold here
+          pass_percentage_threshold=99  # Define your desired threshold here
 
         if [[ $(echo "$sonar_quality_gate_status" | jq -r '.projectStatus.status') == "OK" ]]; then
         echo "Quality Gate Status: Passed"
