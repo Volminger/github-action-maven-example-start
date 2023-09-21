@@ -52,7 +52,21 @@ jobs:
          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=poc-maven_maven
+    - name: Check SonarCloud Quality Gate Status
+      run: |
+        sonar_project_key='poc-maven_maven'
+        sonar_quality_gate_status=$(curl -s -u "${{ secrets.SONAR_TOKEN }}:" \
+        "https://sonarcloud.io/api/qualitygates/project_status?projectKey=${sonar_project_key}")
+          pass_percentage_threshold=90  # Define your desired threshold here
 
+        if [[ $(echo "$sonar_quality_gate_status" | jq -r '.projectStatus.status') == "OK" ]]; then
+        echo "Quality Gate Status: Passed"
+        else
+          echo "Quality Gate Status: Failed"
+        exit 1
+        fi
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: Unit Test
       run: mvn --batch-mode -Dmaven.test.failure.ignore=false test
       
