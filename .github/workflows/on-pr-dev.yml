@@ -49,7 +49,7 @@ jobs:
 
     - name: Versioning
       id: versioning
-      uses: PaulHatch/semantic-version@v5
+      uses: paulhatch/semantic-version@v5.2.2
       with: 
        branch: dev
        tag-prefix: "v"
