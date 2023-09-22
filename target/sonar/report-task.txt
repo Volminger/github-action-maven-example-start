@@ -1,0 +1,7 @@
+organization=poc-maven
+projectKey=poc-maven_maven
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.46586
+dashboardUrl=https://sonarcloud.io/dashboard?id=poc-maven_maven&pullRequest=27
+ceTaskId=AYq7h_a0_vK7yDHZtRSv
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AYq7h_a0_vK7yDHZtRSv

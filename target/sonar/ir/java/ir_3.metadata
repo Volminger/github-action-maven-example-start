@@ -1,0 +1,4 @@
+DeepThought#calculate()V
+DeepThought#think(I)V
+==
+println java.io.PrintStream#println(Ljava/lang/String;)V
