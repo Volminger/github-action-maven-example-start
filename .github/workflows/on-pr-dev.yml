@@ -141,7 +141,7 @@ jobs:
         run: |
             # Replace the image and tag in the manifest file
              echo "GitHub SHA: ${{ github.sha }}"
-             sed -i "s|hamritha817/github-action-maven-tutorial:.*| hamritha817/github-action-maven-tutorial:${{ github.sha }}|" ./manifest/deployment.yaml
+             sed -i "s|hamritha817/github-action-maven-tutorial:.*|hamritha817/github-action-maven-tutorial:${{ github.sha }}|" ./manifest/deployment.yaml
 
       - name: Debug - Show Git Status After Changes
         run: git status
