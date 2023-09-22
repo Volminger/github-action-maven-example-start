@@ -1,5 +1,5 @@
 on: 
-  pull_request: 
+ push: 
    branches:
       - dev
      
@@ -106,30 +106,8 @@ jobs:
       with:
           name: sbom
           path: target/bom.xml
-    - name: Set up Git
-      run: |
-             git config user.name "Your Name"
-             git config user.email "your.email@example.com"
-
-    - name: Versioning
-      id: tagname
-      run: |
-             # Increment the version number, e.g., using Semantic Versioning
-             # Replace this with your versioning logic
-             current_version=$(cat .github/workflows/config/increment.txt)
-             chmod +x .github/workflows/config/increment.sh
-             new_version=$(.github/workflows/config/increment.sh "$current_version")
-             echo "New version: $new_version"
-             echo "::set-output name=new_version::$new_version"  
-             echo "$new_version" > .github/workflows/config/increment.txt 
-             git tag -a "v$new_version" -m "Version $new_version"
-             git add .
-             git commit -m "Update version to $new_version"
-             git push origin --follow-tags
-             echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
-      env:
-          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-
+    
+   
  Docker_push:
     needs: Build_and_test
     runs-on: ubuntu-latest
@@ -145,7 +123,7 @@ jobs:
     - name: Build Container image
       run: docker build -t ${{ secrets.DOCKER_REPO }}:${{ github.sha }} .
     - name: Publish Docker image
-      run: docker push ${{ secrets.DOCKER_REPO }}
+      run: docker push ${{ secrets.DOCKER_REPO }}:${{ github.sha }}
  Deploy:
     needs: Docker_push
     runs-on: ubuntu-latest
