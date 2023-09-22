@@ -60,10 +60,10 @@ jobs:
           pass_percentage_threshold=100  # Define your desired threshold here
 
         if [[ $(echo "$sonar_quality_gate_status" | jq -r '.projectStatus.status') == "OK" ]]; then
-        echo "Quality Gate Status: failed"
-        exit 1
+        echo "Quality Gate Status: passed"
         else
-          echo "Quality Gate Status: passed"
+          echo "Quality Gate Status: failed"
+          exit 1
         fi
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
