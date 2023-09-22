@@ -141,8 +141,7 @@ jobs:
       - name: Modify Manifest
         run: |
             # Replace the image and tag in the manifest file
-            sed -i 's|image: hamritha817/github-action-maven-tutorial:*|image: hamritha817/github-action-maven-tutorial:${{ github.sha }}|' ./manifest/deployment.yaml
-
+             sed -i "s| hamritha817.* | hamritha817/github-action-maven-tutorial:${{ github.sha }} |" ./manifest/deployment.yaml
  
 
       - name: Commit and Push Change
