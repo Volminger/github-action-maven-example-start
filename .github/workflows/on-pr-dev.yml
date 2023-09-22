@@ -155,7 +155,7 @@ jobs:
             git config --global user.email "hamrithaanand02@gmail.com"
             git add ./manifest/deployment.yaml
             git commit -m "Update image tag with github.sha"
-           # git push origin main  
+            git push origin main  
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
      
