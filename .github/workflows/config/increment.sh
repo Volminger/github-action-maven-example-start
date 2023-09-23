@@ -4,7 +4,7 @@
 current_version="0.0.1"
 
 # Split the version string into an array using '.' as the delimiter
-IFS='.' read -ra version_parts <<< "$current_version"
+IFS='.' read -ra version_parts <<< "$(echo "$current_version" | sed 's/\./ /g')"
 
 # Extract major, minor, and patch components
 major="${version_parts[0]}"
