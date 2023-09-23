@@ -1,18 +1,17 @@
 #!/bin/bash
 
-# Set the current version
-current_version="0.0.1"
+# Set the new version
+current_version=1.2.3  # Replace with your desired versioning logic
 
-# Split the version string into an array using '.' as the delimiter
+# Use echo and pipe to split the version string
 IFS='.' read -ra version_parts <<< "$(echo "$current_version" | tr '.' ' ')"
 
-
-# Extract major, minor, and patch components
 major="${version_parts[0]}"
 minor="${version_parts[1]}"
 patch="${version_parts[2]}"
 
-# Increment the desired component, for example, increment the patch version
+# Increment the version based on SemVer rules
+# You can customize this logic to match your versioning strategy
 new_patch=$((patch + 1))
 
 # Construct the new version string
