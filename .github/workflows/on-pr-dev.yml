@@ -52,7 +52,7 @@ jobs:
           chmod +x .github/workflows/config/increment.sh  # Make the script executable
           ./.github/workflows/config/increment.sh
             
-    - name: Build Mave
+    - name: Build Maven
       run: mvn -B package --file pom.xml
       
     - name: Sonarcloud-code coverage
