@@ -50,7 +50,7 @@ jobs:
     - name: Run Versioning Script
       run: |
           chmod +x .github/workflows/config/increment.sh  # Make the script executable
-          sh .github/workflows/config/increment.sh
+          ./.github/workflows/config/increment.sh
             
     - name: Build Maven
       run: mvn -B package --file pom.xml
