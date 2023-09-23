@@ -83,23 +83,33 @@ jobs:
       run: mvn -B package --file pom.xml -DskipTests
     
       
-    - name: Upload to Artifact  
+    - name: Build and Check Artifact
       run: |
-        # Set the new version
-        new_version="1.2.3"  # Replace with your desired version
-        mvn versions:set -DnewVersion="$new_version"
+        # Build your project (replace with your actual build command)
+        mvn clean install
 
-        # Rename the artifact to include the new version (e.g., my-artifact-1.2.3.jar)
-        artifact_name="my-artifact-$new_version.jar"
-        mv target/original-artifact.jar target/"$artifact_name"
-        #mkdir staging && cp target/*jar-with-dependencies-${version}.jar staging
+        # Specify the original artifact name
+        original_artifact="target/original-artifact.jar"
+
+        # Check if the original artifact exists
+        if [ -f "$original_artifact" ]; then
+          # Set the new version
+          new_version="1.2.3"  # Replace with your desired version
+          mvn versions:set -DnewVersion="$new_version"
+
+          # Rename the artifact to include the new version
+          artifact_name="my-artifact-$new_version.jar"
+          mv "$original_artifact" "target/$artifact_name"
+        else
+          echo "Original artifact not found."
+          exit 1
+        fi
 
     - name: Upload Renamed Artifact
       uses: actions/upload-artifact@v2
       with:
-          name: my-artifact  # Specify the artifact name here
-          path: target/"$artifact_name"
-
+        name: my-artifact  # Specify the artifact name here
+        path: target/"$artifact_name"
     #- uses: actions/upload-artifact@v3
      # with:
            # name: Package
