@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # Set the new version
-current_version=1.2.3  # Replace with your desired versioning logic
+current_version="1.2.3"  # Replace with your desired versioning logic
 
-# Use echo and pipe to split the version string
-IFS='.' read -ra version_parts <<< "$(echo "$current_version" | tr '.' ' ')"
-
+# Split the version string into an array using IFS (Internal Field Separator)
+IFS='.' read -ra version_parts <<< "$current_version"
 
 major="${version_parts[0]}"
 minor="${version_parts[1]}"
