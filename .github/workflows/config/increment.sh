@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the new version
-current_version=1.2.3  # Replace with your desired versioning logic
+current_version=0.0.1  # Replace with your desired versioning logic
 
 IFS='.' read -ra version_parts <<< "$current_version"
 major="${version_parts[0]}"
@@ -18,4 +18,4 @@ new_version="$major.$minor.$new_patch"
 # Output the new version
 echo "$new_version"
 # Use the Maven Versions Plugin to update the version in the pom.xml
-mvn versions:set -DnewVersion=$new_version
+mvn versions:set -DnewVersion="$new_version"
