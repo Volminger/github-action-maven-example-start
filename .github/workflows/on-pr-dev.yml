@@ -85,12 +85,25 @@ jobs:
       
     - name: Upload to Artifact  
       run: |
-       version=$(echo "${{ steps.versioning.outputs.version }}")
-       mkdir staging && cp target/*jar-with-dependencies-${version}.jar staging
-    - uses: actions/upload-artifact@v3
+        # Set the new version
+        new_version="1.2.3"  # Replace with your desired version
+        mvn versions:set -DnewVersion="$new_version"
+
+        # Rename the artifact to include the new version (e.g., my-artifact-1.2.3.jar)
+        artifact_name="my-artifact-$new_version.jar"
+        mv target/original-artifact.jar target/"$artifact_name"
+        #mkdir staging && cp target/*jar-with-dependencies-${version}.jar staging
+
+    - name: Upload Renamed Artifact
+      uses: actions/upload-artifact@v2
       with:
-            name: Package
-            path: staging
+          name: my-artifact  # Specify the artifact name here
+          path: target/"$artifact_name"
+
+    #- uses: actions/upload-artifact@v3
+     # with:
+           # name: Package
+            #path: staging
     #- name: Nexus Repo Publish
      # uses: sonatype-nexus-community/nexus-repo-github-action@master
       #with:
