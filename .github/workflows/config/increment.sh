@@ -3,7 +3,9 @@
 # Set the new version
 current_version=1.2.3  # Replace with your desired versioning logic
 
-IFS='.' read -ra version_parts <<< "$current_version"
+# Use echo and pipe to split the version string
+IFS='.' read -ra version_parts <<< "$(echo "$current_version" | tr '.' ' ')"
+
 major="${version_parts[0]}"
 minor="${version_parts[1]}"
 patch="${version_parts[2]}"
