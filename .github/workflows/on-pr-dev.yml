@@ -80,8 +80,7 @@ jobs:
       run: mvn --batch-mode -Dmaven.test.failure.ignore=false test
       
     - name: Build Test Maven
-      run: mvn -B package --file pom.xml -DskipTests
-    
+      run: mvn -B package --file pom.xml -DskipTests    
       
     - name: Upload to Artifact  
       run: mkdir staging && cp target/*jar-with-dependencies.jar staging
