@@ -90,12 +90,6 @@ jobs:
       with:
            name: Package
            path: staging
-
-    - name: Upload Renamed Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: my-artifact  # Specify the artifact name here
-        path: target/"$artifact_name"
     #- uses: actions/upload-artifact@v3
      # with:
            # name: Package
