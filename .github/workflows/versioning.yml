@@ -1,0 +1,35 @@
+name: Update Pom.xml Version
+
+on:
+  workflow_dispatch:  # Manual trigger, or you can use other triggers like schedule
+
+jobs:
+  update_version:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+
+    - name: Update Pom.xml Version
+      run: |
+          # Increment the version number, e.g., using Semantic Versioning
+          # Replace this with your versioning logic
+          current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          new_patch=$((current_version + 1))
+          new_version="1.0.$new_patch"
+      
+          # Use the Maven Versions Plugin to update the version in the pom.xml
+          mvn versions:set -DnewVersion="$new_version"
+      
+          # Commit the updated pom.xml locally
+          git config --global user.email "preethiagnest@gmail.com"
+          git config --global user.name "PreethiAgnes"
+          git commit -am "Bump version to $new_version"
+      
