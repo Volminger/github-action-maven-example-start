@@ -146,6 +146,9 @@ jobs:
               # Copy the JAR file to the versioned directory
               cp target/*jar-with-dependencies.jar "staging/$version"
           
+              # Set the version as an environment variable
+              echo "version=$version" >> $GITHUB_ENV
+          
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
