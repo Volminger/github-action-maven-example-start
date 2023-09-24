@@ -1,10 +1,9 @@
 #!/bin/bash
 
 # Set the new version
-current_version=$(cat .github/workflows/config/version.txt) # Replace with your desired versioning logic
-
+current_version=$(cat .github/workflows/config/version.txt)
 # Use echo and pipe to split the version string
-IFS='.' read -ra version_parts <<< "$(echo "$current_version" | tr '.' ' ')"
+IFS='.' read -ra version_parts <<< "$current_version"
 
 major="${version_parts[0]}"
 minor="${version_parts[1]}"
@@ -21,7 +20,7 @@ new_version="$major.$minor.$new_patch"
 echo "$new_version"
 
 # Use the Maven Versions Plugin to update the version in the pom.xml
-mvn versions:set -DnewVersion="$new_version"
+versions:set -DnewVersion="$new_version"
 
 #sed -i "s/\(\$current_version\s*=\s*\)\(.*\)/\1$new_version/" ./.github/workflows/config/version.txt
 
