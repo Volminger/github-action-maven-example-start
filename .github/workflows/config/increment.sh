@@ -23,5 +23,7 @@ echo "$new_version"
 # Use the Maven Versions Plugin to update the version in the pom.xml
 mvn versions:set -DnewVersion="$new_version"
 
-sed -i "s/\(\$current_version\s*=\s*\)\(.*\)/\1$new_version/" ./.github/workflows/config/version.txt
+#sed -i "s/\(\$current_version\s*=\s*\)\(.*\)/\1$new_version/" ./.github/workflows/config/version.txt
+
+sed -i "s/$current_version/$new_version/g" ./.github/workflows/config/version.txt
 
