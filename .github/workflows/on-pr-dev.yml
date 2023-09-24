@@ -53,7 +53,7 @@ jobs:
           ./.github/workflows/config/increment.sh
           git config --global user.email "preethiagnest@gmail.com"
           git config --global user.name "PreethiAgnes"
-          git add ./.github/workflows/config/version.txt
+          git add .
           git commit -m "Update version to $new_version"
           git push origin
             
