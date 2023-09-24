@@ -232,4 +232,16 @@ jobs:
             git push origin main  
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+ Notification:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send Notification to Teams
+      env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+      run: |
+                  MESSAGE="Your workflow has completed successfully!"
+                  curl -X POST -H "Content-Type: application/json" -d '{
+                    "text": "'"${MESSAGE}"'"
+                  }' "${TEAMS_WEBHOOK_URL}"
      
