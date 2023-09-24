@@ -20,7 +20,7 @@ new_version="$major.$minor.$new_patch"
 echo "$new_version"
 
 # Use the Maven Versions Plugin to update the version in the pom.xml
-mvn versions:set -DnewVersion="$current_version"
+mvn versions:set -DnewVersion="$current_version" -DgenerateBackupPoms=false
 
 #sed -i "s/\(\$current_version\s*=\s*\)\(.*\)/\1$new_version/" ./.github/workflows/config/version.txt
 
