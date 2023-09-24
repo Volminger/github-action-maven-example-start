@@ -18,29 +18,39 @@ on:
 
       - '!qa'
 
- 
-
-permissions:
-
-  id-token: write
-
-  contents: read
-
- 
-
 jobs:
-
   validate_branch_name:
-
     runs-on: ubuntu-latest
-
+          
     steps:
 
-      - uses: deepakputhraya/action-branch-name@master
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-        with:
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
 
-          regex: '[a-z]'
+    - name: Use Jira API
+      env:
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      run: |
+        # Set your Jira domain and project key
+        JIRA_DOMAIN="https://your-jira-domain.atlassian.net"
+        PROJECT_KEY="YOUR_PROJECT_KEY"
 
-          ignore: prd
+        # Make API requests using curl or a programming language
+        curl -X GET "$JIRA_DOMAIN/rest/api/3/project/$PROJECT_KEY" \
+          -H "Authorization: Basic $JIRA_API_TOKEN"
 
+    - name: Check Branch Name
+      id: branch_name
+      run: |
+                branch_name=$(echo "${{ github.head_ref }}" | sed 's/refs\/heads\///')
+                if [[ ! "$branch_name" =~ ^DEV-[0-9]+$ ]]; then
+                  echo "error::Branch name does not follow the expected pattern (e.g., DEV-123)."
+                  echo "error::Please rename your branch and open a new pull request."
+                  exit 1
+                fi
