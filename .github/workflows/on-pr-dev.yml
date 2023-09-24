@@ -76,7 +76,49 @@ jobs:
       run: mvn --batch-mode -Dmaven.test.failure.ignore=false test
       
     - name: Build Test Maven
-      run: mvn -B package --file pom.xml -DskipTests    
+      run: mvn -B package --file pom.xml -DskipTests   
+      
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+
+    - name: Check Commit Message
+      id: commit-message
+      run: |
+          if [[ "$(git log -1 --pretty=%B)" == *"[skip ci]"* ]]; then
+            echo "Commit message indicates skipping workflow."
+            echo "::set-output name=skip::true"
+          fi
+      continue-on-error: true
+  
+    - name: Update Pom.xml Version
+      if: steps.commit-message.outputs.skip != 'true'
+      run: |
+          # Increment the version number, e.g., using Semantic Versioning
+          # Replace this with your versioning logic
+          current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          new_patch=$((current_version + 1))
+          new_version="1.0.$new_patch"
+      
+          # Use the Maven Versions Plugin to update the version in the pom.xml
+          mvn versions:set -DnewVersion="$new_version"
+      
+          # Commit the updated pom.xml locally
+          git config --global user.email "preethiagnest@gmail.com"
+          git config --global user.name "PreethiAgnes"
+          git commit -am "[skip ci]"
+  
+    - name: Push Changes to Repository
+      if: steps.commit-message.outputs.skip != 'true'
+      run: |
+          # Push the changes to the repository
+          git push origin dev
+
       
     - name: Upload to Artifact  
       run: mkdir staging && cp target/*jar-with-dependencies.jar staging
