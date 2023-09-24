@@ -6,7 +6,7 @@
 
     <groupId>org.kth</groupId>
     <artifactId>github-action-maven-tutorial</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
