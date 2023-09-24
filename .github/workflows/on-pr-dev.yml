@@ -20,7 +20,7 @@ jobs:
           chmod +x talisman
           sudo mv talisman /usr/local/bin/
 
-    - name: Run Talisman Checks
+    - name: Run Talisman Check
       run: talisman --scan 
       continue-on-error: true
 
