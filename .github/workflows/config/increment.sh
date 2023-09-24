@@ -23,4 +23,5 @@ echo "$new_version"
 # Use the Maven Versions Plugin to update the version in the pom.xml
 mvn versions:set -DnewVersion="$new_version"
 
-echo "$new_version" > .github/workflows/config/version.txt
+run: sed -i "s/^[[:space:]]*version:[[:space:]]*[0-9]\+\.[0-9]\+\.[0-9]\+$/version: $new_version/" .github/workflows/config/version.txt
+
