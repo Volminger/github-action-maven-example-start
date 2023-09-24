@@ -80,6 +80,9 @@ jobs:
       
     - name: Checkout code
       uses: actions/checkout@v2
+      with:  # Replace with the repository URL
+        ref: dev 
+        token: ${{secrets.PAT_TOKEN }}
 
     - name: Set up JDK
       uses: actions/setup-java@v2
