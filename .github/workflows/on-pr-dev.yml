@@ -19,7 +19,7 @@ jobs:
                     "text": "'"${MESSAGE}"'"
                   }' "${TEAMS_WEBHOOK_URL}"
   pre-push_hook:
-
+    needs: Job-Starting-Notification
     runs-on: ubuntu-latest    
     steps:
     - name: Checkout
