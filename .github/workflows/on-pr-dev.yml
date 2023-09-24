@@ -45,9 +45,8 @@ jobs:
       with:
           name: talisman-scan-report
           path: talisman_report/talisman_reports/data
-   
 
- Build_and_test:
+  Build_and_test:
     needs: pre-push_hook
     runs-on: ubuntu-latest
     
