@@ -79,7 +79,7 @@ jobs:
       run: mvn -B package --file pom.xml -DskipTests   
       
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:  # Replace with the repository URL
         ref: dev 
         token: ${{secrets.PAT_TOKEN }}
@@ -135,13 +135,22 @@ jobs:
             PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
       
-    - name: Upload to Artifact  
-      run: mkdir staging && cp target/*jar-with-dependencies.jar staging
-      
-    - uses: actions/upload-artifact@v3
+    - name: Set Artifact Name with Version
+      run: |
+              # Extract the version from pom.xml
+              version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          
+              # Create a directory with the version number
+              mkdir -p "staging/$version"
+          
+              # Copy the JAR file to the versioned directory
+              cp target/*jar-with-dependencies.jar "staging/$version"
+          
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
       with:
-           name: Package
-           path: staging
+          name: ${{ env.version }}
+          path: staging
     #- uses: actions/upload-artifact@v3
      # with:
            # name: Package
@@ -191,7 +200,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: Hamritha02/Deployment   # Replace with the repository URL
           ref: main 
