@@ -121,6 +121,8 @@ jobs:
       run: |
           # Push the changes to the repository
           git push origin dev
+      env:
+            PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
       
     - name: Upload to Artifact  
