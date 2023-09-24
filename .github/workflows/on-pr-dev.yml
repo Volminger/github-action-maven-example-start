@@ -13,8 +13,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-      env:
-        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
     - name: Install Talisman
       run: |
@@ -27,7 +25,9 @@ jobs:
       continue-on-error: true
 
     - name: Increment Pom Version
-      run: .github/workflows/scripts/increment-version.sh
+      run: |
+        chmod +x .github/workflows/scripts/increment-version.sh
+        .github/workflows/scripts/increment-version.sh
 
     - name: Upload Report
       uses: actions/upload-artifact@v3
