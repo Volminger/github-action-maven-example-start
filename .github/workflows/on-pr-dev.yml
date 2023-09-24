@@ -234,6 +234,7 @@ jobs:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
  Notification:
+    needs: Docker_push
     runs-on: ubuntu-latest
     steps:
     - name: Send Notification to Teams
