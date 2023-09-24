@@ -23,11 +23,16 @@ jobs:
       run: talisman --scan 
       continue-on-error: true
 
+    - name: Increment Pom Version
+      run: .github/workflows/scripts/increment-version.sh
+
     - name: Upload Report
       uses: actions/upload-artifact@v3
       with:
           name: talisman-scan-report
           path: talisman_report/talisman_reports/data
+   
+
  Build_and_test:
     needs: pre-push_hook
     runs-on: ubuntu-latest
