@@ -7,7 +7,7 @@ permissions:
   id-token: write
   contents: read
 jobs:
-  Notification:
+  Job-Starting-Notification:
     runs-on: ubuntu-latest
     steps:
     - name: Send Notification to Teams
@@ -192,7 +192,7 @@ jobs:
           path: target/bom.xml
     
    
- Docker_push:
+  Docker_push:
     needs: Build_and_test
     runs-on: ubuntu-latest
     
@@ -208,7 +208,7 @@ jobs:
       run: docker build -t ${{ secrets.DOCKER_REPO }}:${{ github.sha }} .
     - name: Publish Docker image
       run: docker push ${{ secrets.DOCKER_REPO }}:${{ github.sha }}
- Deploy:
+  Deploy:
     needs: Docker_push
     runs-on: ubuntu-latest
     steps:
@@ -243,7 +243,7 @@ jobs:
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
- Notification:
+  Job-Ending-Notification:
     needs: Docker_push
     runs-on: ubuntu-latest
     steps:
