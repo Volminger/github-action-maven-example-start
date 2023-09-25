@@ -98,16 +98,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-  
-    - name: Push Changes to Repository
-      if: steps.commit-message.outputs.skip != 'true'
-      run: |
-          # Push the changes to the repository
-          git push origin
-      env:
-            PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-
-      
+        
     - name: Set Artifact Name with Version
       run: |
               # Extract the version from pom.xml
@@ -188,6 +179,14 @@ jobs:
             git config --global user.email "preethiagnest@gmail.com"
             git config --global user.name "PreethiAgnes"
             git commit -am "[skip ci]"
+
+    - name: Push Changes to Repository
+      if: steps.commit-message.outputs.skip != 'true'
+      run: |
+                # Push the changes to the repository
+                git push origin
+      env:
+                  PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
     
    
   Docker_push:
