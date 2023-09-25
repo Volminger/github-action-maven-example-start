@@ -1,8 +1,9 @@
-name: Maven-poc
+name: Maven-poc 
 on: 
  push: 
    branches:
-      - dev
+      - feature
+      - master
      
 permissions:
   id-token: write
