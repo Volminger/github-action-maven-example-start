@@ -26,6 +26,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Set Artifact Version
+      run: |
+        # Extract the version from pom.xml
+        version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        echo "version=$version" >> $GITHUB_ENV
+
     - name: Install Talisman
       run: |
           wget https://github.com/thoughtworks/talisman/releases/latest/download/talisman_linux_amd64 -O talisman
