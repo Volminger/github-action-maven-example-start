@@ -50,8 +50,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
-         repository: Hamritha02/github-action-maven-example-start
-         ref: dev
+         #repository: Hamritha02/github-action-maven-example-start
+         #ref: dev
          token: ${{secrets.PAT_TOKEN }}
             
     - name: Build Maven
