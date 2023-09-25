@@ -214,9 +214,6 @@ jobs:
           repository: Hamritha02/Deployment   # Replace with the repository URL
           ref: main 
           token: ${{secrets.PAT_TOKEN }}
-
- 
-
    
       - name: Modify Manifest
         run: |
@@ -240,7 +237,7 @@ jobs:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
   Job-Ending-Notification:
-    needs: Docker_push
+    needs: Deploy
     runs-on: ubuntu-latest
     steps:
     - name: Send Notification to Teams
