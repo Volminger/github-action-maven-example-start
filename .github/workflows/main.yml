@@ -180,7 +180,7 @@ jobs:
             git config --global user.name "PreethiAgnes"
             git commit -am "[skip ci]"
 
-    - name: Push Changes to Repository
+    - name: Push Changes to Reposito
       if: steps.commit-message.outputs.skip != 'true'
       run: |
                 # Push the changes to the repository
