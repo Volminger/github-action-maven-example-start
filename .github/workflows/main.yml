@@ -39,7 +39,7 @@ jobs:
     - name: Upload Report
       uses: actions/upload-artifact@v3
       with:
-          name: talisman-scan-report
+          name: talisman-scan-report-${{ env.version }}
           path: talisman_report/talisman_reports/data
 
   Build_and_test:
