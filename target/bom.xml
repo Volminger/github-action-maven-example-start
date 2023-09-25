@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom serialNumber="urn:uuid:8fc751c8-c7b0-498e-8787-7c3eabec936a" version="1" xmlns="http://cyclonedx.org/schema/bom/1.4">
+<bom serialNumber="urn:uuid:a5ba1e26-254f-4646-b8c0-9b6e086ef228" version="1" xmlns="http://cyclonedx.org/schema/bom/1.4">
   <metadata>
-    <timestamp>2023-09-25T06:46:25Z</timestamp>
+    <timestamp>2023-09-25T06:56:00Z</timestamp>
     <tools>
       <tool>
         <vendor>OWASP Foundation</vendor>
@@ -19,15 +19,15 @@
         </hashes>
       </tool>
     </tools>
-    <component type="library" bom-ref="pkg:maven/org.kth/github-action-maven-tutorial@1.0.16?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.kth/github-action-maven-tutorial@1.0.17?type=jar">
       <group>org.kth</group>
       <name>github-action-maven-tutorial</name>
-      <version>1.0.16</version>
+      <version>1.0.17</version>
       <licenses/>
-      <purl>pkg:maven/org.kth/github-action-maven-tutorial@1.0.16?type=jar</purl>
+      <purl>pkg:maven/org.kth/github-action-maven-tutorial@1.0.17?type=jar</purl>
     </component>
   </metadata>
   <dependencies>
-    <dependency ref="pkg:maven/org.kth/github-action-maven-tutorial@1.0.16?type=jar"/>
+    <dependency ref="pkg:maven/org.kth/github-action-maven-tutorial@1.0.17?type=jar"/>
   </dependencies>
 </bom>
