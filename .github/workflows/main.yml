@@ -98,42 +98,6 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-
-    - name: Check Commit Message
-      id: commit-message
-      run: |
-          if [[ "$(git log -1 --pretty=%B)" == *"[skip ci]"* ]]; then
-            echo "Commit message indicates skipping workflow."
-            echo "::set-output name=skip::true"
-          fi
-      continue-on-error: true
-  
-    - name: Update Pom.xml Version
-      if: steps.commit-message.outputs.skip != 'true'
-      run: |
-        # Increment the version number, e.g., using Semantic Versioning
-        # Replace this with your versioning logic
-        current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-        
-        # Use echo and pipe to split the version string
-        IFS='.' read -ra version_parts <<< "$current_version"
-        major="${version_parts[0]}"
-        minor="${version_parts[1]}"
-        patch="${version_parts[2]}"
-        
-        # Increment the patch version
-        new_patch=$((patch + 1))
-        
-        # Construct the new version string
-        new_version="$major.$minor.$new_patch"
-        
-        # Use the Maven Versions Plugin to update the version in the pom.xml
-        mvn versions:set -DnewVersion="$new_version"
-        
-        # Commit the updated pom.xml locally
-        git config --global user.email "preethiagnest@gmail.com"
-        git config --global user.name "PreethiAgnes"
-        git commit -am "[skip ci]"
   
     - name: Push Changes to Repository
       if: steps.commit-message.outputs.skip != 'true'
@@ -189,6 +153,42 @@ jobs:
       with:
           name: sbom-${{ env.version }}
           path: target/bom.xml
+
+    - name: Check Commit Message
+      id: commit-message
+      run: |
+              if [[ "$(git log -1 --pretty=%B)" == *"[skip ci]"* ]]; then
+                echo "Commit message indicates skipping workflow."
+                echo "::set-output name=skip::true"
+              fi
+      continue-on-error: true
+
+    - name: Update Pom.xml Version
+      if: steps.commit-message.outputs.skip != 'true'
+      run: |
+            # Increment the version number, e.g., using Semantic Versioning
+            # Replace this with your versioning logic
+            current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+            
+            # Use echo and pipe to split the version string
+            IFS='.' read -ra version_parts <<< "$current_version"
+            major="${version_parts[0]}"
+            minor="${version_parts[1]}"
+            patch="${version_parts[2]}"
+            
+            # Increment the patch version
+            new_patch=$((patch + 1))
+            
+            # Construct the new version string
+            new_version="$major.$minor.$new_patch"
+            
+            # Use the Maven Versions Plugin to update the version in the pom.xml
+            mvn versions:set -DnewVersion="$new_version"
+            
+            # Commit the updated pom.xml locally
+            git config --global user.email "preethiagnest@gmail.com"
+            git config --global user.name "PreethiAgnes"
+            git commit -am "[skip ci]"
     
    
   Docker_push:
