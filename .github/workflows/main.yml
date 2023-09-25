@@ -36,11 +36,6 @@ jobs:
       run: talisman --scan 
       continue-on-error: true
 
-    - name: Increment Pom Version
-      run: |
-        chmod +x .github/workflows/scripts/increment-version.sh
-        .github/workflows/scripts/increment-version.sh
-
     - name: Upload Report
       uses: actions/upload-artifact@v3
       with:
