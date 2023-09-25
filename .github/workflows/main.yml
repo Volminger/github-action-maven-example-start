@@ -50,8 +50,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
-         #repository: Hamritha02/github-action-maven-example-start
-         #ref: dev
          token: ${{secrets.PAT_TOKEN }}
             
     - name: Build Maven
@@ -86,8 +84,7 @@ jobs:
       
     - name: Checkout code
       uses: actions/checkout@v3
-      with:  # Replace with the repository URL
-        ref: dev 
+      with:  
         token: ${{secrets.PAT_TOKEN }}
 
     - name: Set up JDK
@@ -136,7 +133,7 @@ jobs:
       if: steps.commit-message.outputs.skip != 'true'
       run: |
           # Push the changes to the repository
-          git push origin dev
+          git push origin
       env:
             PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
