@@ -33,8 +33,4 @@ jobs:
       uses: mathieudutour/github-tag-action@v6.1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        create_annotated_tag: true
-        append_to_pre_release_tag: true
-        release_branches: master
-        custom_release_rules: <major>:<minor>:<patch>
-        tag_prefix: false
+        append_to_pre_release_tag: <dev>
