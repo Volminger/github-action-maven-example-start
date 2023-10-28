@@ -17,13 +17,22 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 14
+        cache: maven
         
-    - name: Cache the Maven packages to speed up build
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2  
+#    - name: Cache the Maven packages to speed up build
+#      uses: actions/cache@v1
+#      with:
+#        path: ~/.m2
+#        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+#        restore-keys: ${{ runner.os }}-m2
     
     - name: Build project with Maven
       run: mvn -B package --file pom.xml
+
+    - name: Bump version and push tag
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v6.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        append_to_pre_release_tag: <dev>
+        pre_release_branches: .*
