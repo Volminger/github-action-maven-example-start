@@ -1,8 +1,8 @@
-name: Java App Service CI/CD
-
+name: Validate
 on:
   push:
-    branches: [master]
+    branches:
+      - 'feature'
 
 jobs:
   build_and_test:
