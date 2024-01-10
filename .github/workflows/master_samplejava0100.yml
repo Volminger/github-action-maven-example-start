@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
                       
       - name: Add Reviewer
-        uses: peter-evans/add-comment@v1
+        uses: reviewdog/action-approve-review@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           message: 'Please review and approve this pull request.'
