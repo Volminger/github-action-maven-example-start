@@ -1,14 +1,14 @@
 name: Deploy
 on:
-  pull_request:
-    types:
-      - closed
+  pull_request_review:
+    types: [submitted]
+
     branches:
       - dev
 
 jobs:
   build_and_test:
-    if: github.event.pull_request.merged == true
+    if: github.event.review.user.login == 'rajubhovi1111111111' && github.event.review.state == 'approved'
     runs-on: ubuntu-latest
 
     steps:
