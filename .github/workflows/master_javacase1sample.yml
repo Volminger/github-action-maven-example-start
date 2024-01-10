@@ -12,15 +12,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+    - name: Add Reviewer
+      uses: peter-evans/add-comment@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        message: 'Please review and approve this pull request.'
+        pull-request-number: ${{ github.event.number }}
+        reviewers: 'rajubhovi1111111111'
 
-      - name: Set up JDK 14
-        uses: actions/setup-java@v1
-        with:
+
+    - name: Set up JDK 14
+      uses: actions/setup-java@v1
+      with:
           java-version: 14
 
-      - name: Build project with Maven
-        run: mvn clean install --file pom.xml
+    - name: Build project with Maven
+      run: mvn clean install --file pom.xml
 
   #     - name: Test project with Maven
   #       run: mvn test --file pom.xml
